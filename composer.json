@@ -6,6 +6,7 @@
     "autoload": {
         "psr-0": { "": "src/" }
     },
+    "target-dir": "MESD/Jasper/ReportViewerBundle",
     "require": {
         "mesd/jasper-client": "dev-report-bundle",
         "mesd/jasper-report-bundle": "dev-master"
