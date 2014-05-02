@@ -1,0 +1,3 @@
+MESDJasperReportViewerBundle_display_html_report:
+    pattern:  /display/{requestId}/{page}
+    defaults: { _controller: "MESDJasperReportViewerBundle:ReportViewer:displayHtmlReport" }
