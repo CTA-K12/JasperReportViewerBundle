@@ -1,6 +1,6 @@
 body {
     display:                   block;
-    background-color:           #fff;
+    background-color:           #e5e5e5;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 12px;
     line-height: 16px;
@@ -63,7 +63,8 @@ body {
     margin-top: 5px;
 }
 
-.input-control label {
+.input-control label,
+label {
     font-size: 12px;
     margin: 0;
 }
@@ -112,6 +113,7 @@ body {
 }
 
 .navbar .nav > li > a.btn {
+    float: left;
     padding: 4px 14px;
     color: #000;
 }
@@ -142,7 +144,6 @@ body {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    height: 100%;
 }
 
 .content-panel {
@@ -172,4 +173,70 @@ body {
     padding-top:200px;
     box-sizing:border-box;
     text-align:center;
+}
+
+.jstree-container-ul,
+.jstree-container-ul ul {
+    list-style-type: none;
+}
+
+.jstree-anchor {
+    padding: 4px 14px;
+    color: #08c;
+    font-size: 16px;
+}
+
+.jstree-anchor > i {
+    font-size: 16px;
+}
+
+.jstree-anchor:focus,
+.jstree-anchor:hover {
+    color:               #333333;
+    background-color:    #e6e6e6;
+    background-position: 0 -15px;
+    text-decoration: none;
+    -webkit-transition: background-position 0.1s linear;
+       -moz-transition: background-position 0.1s linear;
+         -o-transition: background-position 0.1s linear;
+            transition: background-position 0.1s linear;
+}
+
+.paginate_button {
+    display: inline-block;
+    padding: 0px 6px;
+    margin-right: 0px;
+    border-radius: 0px;
+    border: solid 1px #c0c0c0;
+    background: #FFFFFF;
+    font-size: .875em;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.paginate_button.current {
+    display: inline-block;
+    padding: 0px 6px;
+    margin-right: 0px;
+    border-radius: 0px;
+    border: solid 1px #c0c0c0;
+    background: #006583;
+    font-size: .875em;
+    font-weight: bold;
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.paginate_button.disabled {
+  color: #e0e0e0;
+}
+
+.paginate_button.disabled:hover {
+  color: #e0e0e0;
+  background: #FFFFFF;
+}
+
+.paginate_button:hover {
+  color: #FFFFFF;
+  background: #006583;
 }

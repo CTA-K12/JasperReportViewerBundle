@@ -10,6 +10,11 @@
                 <title>Report Viewer</title>
 
                 {% block stylesheets %}
+
+                    <link rel="stylesheet" type="text/css" media="all" href="//cdnjs.cloudflare.com/ajax/libs/normalize/2.1.3/normalize.min.css">
+                    <link rel="stylesheet" type="text/css" media="all" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/css/base/jquery.ui.all.min.css">
+                    <link rel="stylesheet" type="text/css" media="all" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
+
                     {% stylesheets
                     '@MESDJasperReportViewerBundle/Resources/public/css/style.css'
                     filter='cssrewrite' %}
@@ -27,34 +32,40 @@
 
         <body>
             {% block body %}
-
                 <header id="header">
                     {% block navbar %}
-                        <nav id="nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
-                            {% block navbarContent %}
-                            {% endblock navbarContent %}
-                        </nav><!-- END nav, navbar -->
+                        <div id="nav" class="navbar navbar-fixed-top" role="navigation">
+                            <div class="navbar-inner">
+                                <a class="brand" href="#">Report Viewer</a>
+                                <ul class="nav">
+                                    {% block navbarContent %}
+                                    {% endblock navbarContent %}
+                                </ul>
+                            </div>
+                        </div><!-- END nav, navbar -->
                     {% endblock navbar %}
                 </header>
 
-                <div id="container" class="wrapper">
-                    {% block container %}
-                    {% endblock container %}
+                <div class="wrapper wrapper-outer">
+                    <div class="wrapper-inner">
+                        {% block container %}
+                        {% endblock container %}
+                    </div>
                 </div><!-- END container -->
 
-                <!-- {% block javascripts %}
+                {% block javascripts %}
+                    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.0/modernizr.min.js"></script>
+                    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+                    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+                    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+                    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jstree/3.0.0/jstree.min.js"></script>
+                    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.0/jquery.dataTables.min.js"></script>
                     {% javascripts
-                        '@MesdPresentationBundle/Resources/public/js/jquery/*'
-                        '@MesdPresentationBundle/Resources/public/js/bootstrap/*'
-                        '@MesdPresentationBundle/Resources/public/js/cookie/*'
-                        '@MesdPresentationBundle/Resources/public/js/introjs/*'
-                        '@MesdPresentationBundle/Resources/public/js/elementqueries/*'
-                        '@MesdPresentationBundle/Resources/public/js/orchestra.js'
-                        output='bundles/mesdpresentation/js/orchestra.min.js'
+                        '@MESDJasperReportViewerBundle/Resources/public/js/*'
                         %}
                         <script type="text/javascript" src="{{ asset_url }}"></script>
                     {% endjavascripts %}
-                {% endblock javascripts %} -->
+                {% endblock javascripts %}
             {% endblock body %}
         </body>
 

@@ -1,5 +1,38 @@
-{% extends 'MESDJasperReportViewerBundle:base.html.twig' %}
+{% extends 'MESDJasperReportViewerBundle::base.html.twig' %}
+
+{% block navbarContent %}
+    {% if hideHome == 'false' %}
+        <li class="btn-group">
+            <a class="btn" title="Report Home" href="{{ url('MESDJasperReportViewerBundle_home') }}"><i class="icon-home"></i> Report Home</a>
+        </li>
+    {% endif %}
+    <li class="btn-group">
+    {% for format in report.availableFormats if 'html' != format %}
+        <a class="btn" title="Export to {{ format|upper }}" href="{{ url('mesd_jasperreport_export_cached_report', {'requestId': report.requestId, 'format': format}) }}">{{ format|upper }}</a>
+    {% endfor %}
+    </li>
+    <li class="btn-group">
+        <a class="btn {% if report.page == 1 %}disabled{% endif %}" title="First Page" href="{{ url('MESDJasperReportViewerBundle_display_html_report', {'requestId': report.requestId, 'page': 1, 'hideHome': hideHome}) }}"><i class="icon-fast-backward"></i></a>
+        <a class="btn {% if report.page == 1 %}disabled{% endif %}" title="Previous 10 Pages" href="{{ url('MESDJasperReportViewerBundle_display_html_report', {'requestId': report.requestId, 'page': max(1, report.page - 10), 'hideHome': hideHome}) }}"><i class="icon-step-backward"></i></a>
+        <a class="btn {% if report.page == 1 %}disabled{% endif %}" title="Previous Page" href="{{ url('MESDJasperReportViewerBundle_display_html_report', {'requestId': report.requestId, 'page': max(1, report.page - 1), 'hideHome': hideHome}) }}"><i class="icon-backward"></i></a>
+        <a class="btn {% if report.page == report.totalPages %}disabled{% endif %}" title="Next Page" href="{{ url('MESDJasperReportViewerBundle_display_html_report', {'requestId': report.requestId, 'page': min(report.totalPages, report.page + 1), 'hideHome': hideHome}) }}"><i class="icon-forward"></i></a>
+        <a class="btn {% if report.page == report.totalPages %}disabled{% endif %}" title="Next 10 Pages" href="{{ url('MESDJasperReportViewerBundle_display_html_report', {'requestId': report.requestId, 'page': min(report.totalPages, report.page + 10), 'hideHome': hideHome}) }}"><i class="icon-step-forward"></i></a>
+        <a class="btn {% if report.page == report.totalPages %}disabled{% endif %}" title="Last Page" href="{{ url('MESDJasperReportViewerBundle_display_html_report', {'requestId': report.requestId, 'page': report.totalPages, 'hideHome': hideHome}) }}"><i class="icon-fast-forward"></i></a>
+    </li>
+{% endblock navbarContent %}
 
 {% block container %}
-    {{ report.output|raw }}
+    <section class="content">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style type="text/css">a {text-decoration: none}</style>
+        <style type="text/css">.jrPage{margin-left: auto;margin-right: auto;}</style>
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+                <tr>
+                    <td width="50%">&nbsp;</td>
+                    <td align="center">{{ report.output|raw }}</td>
+                    <td width="50%">&nbsp;</td>
+                </tr>
+            </tbody>
+    </section>
 {% endblock container %}

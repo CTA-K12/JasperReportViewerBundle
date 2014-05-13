@@ -1,0 +1,16 @@
+{% extends 'MESDJasperReportViewerBundle::base.html.twig' %}
+
+{% block navbarContent %}
+    <li class="btn-group">
+        <a class="btn" title="Report Home" href="{{ url('MESDJasperReportViewerBundle_home') }}"><i class="icon-home"></i> Report Home</a>
+    </li>
+{% endblock navbarContent %}
+
+{% block container %}
+    <section class="content">
+        <div class="content-panel">
+            <h2>Report Home</h2>
+            <div id="jstree" data-url="{{ url('MESDJasperReportViewerBundle_reports_json') }}"></div>
+        </div>
+    </section>
+{% endblock container %}
