@@ -30,24 +30,29 @@ class ReportViewerController extends ContainerAware
     /**
      * Display a requested page from an html report
      *
-     * @param  string $requestId The request id of the cached report
-     * @param  string $page      The page number to display
+     * @param  string $reportUri The jasper server uri of the report to display the viewer for
      *
      * @return Response  The rendered page
      */
-    public function displayHtmlReportAction($requestId, $page) {
+    public function reportViewerAction($reportUri) {
         //Determine whether to show or hide the report home button
         $hideHome = $this->container->get('request')->query->get('hideHome') ?: 'false';
 
-        //Load the report
-        $rl = $this->container->get('mesd.jasperreport.loader')->getReportLoader();
-        $report = $rl->getCachedReport($requestId, 'html', array('page' => $page));
+        //Build the form
+        $form = $this->container->get('mesd.jasperreport.client')->buildReportInputForm(
+            urldecode($reportUri), 'MESDJasperReportViewerBundle_report_form', array(
+                'routeParameters' => array(
+                    'reportUri' => $reportUri
+                )
+            )
+        );
 
         //Display
         $response = new Response($this->container->get('templating')->render( 'MESDJasperReportViewerBundle:ReportViewer:reportViewer.html.twig'
             , array(
-                'report' => $report,
-                'hideHome' => $hideHome
+                'hideHome' => $hideHome,
+                'reportUri' => $reportUri,
+                'form' => $form->createView()
             )
         ));
 
@@ -62,25 +67,11 @@ class ReportViewerController extends ContainerAware
      *
      * @return Response          Rendered page
      */
-    public function reportInfoAction($reportUri) {
-        //Decode the report uri
-        $decodedReportUri = urldecode($reportUri);
-
-        //Get the input controls for this report
-        $form = $this->container->get('mesd.jasperreport.client')->buildReportInputForm(
-            $decodedReportUri, 'MESDJasperReportViewerBundle_report_form', array(
-                'routeParameters' => array(
-                    'reportUri' => $reportUri
-                )
-            )
-        );
-
+    public function historyAction($reportUri = null) {
         //Render and return
         $response = new Response($this->container->get('templating')->render(
-            'MESDJasperReportViewerBundle:ReportViewer:reportInfo.html.twig', array(
-                'reportUri'        => $reportUri,
-                'decodedReportUri' => $decodedReportUri,
-                'form' => $form->createView()
+            'MESDJasperReportViewerBundle:ReportViewer:reportHistory.html.twig', array(
+                'reportUri' => $reportUri
                 )
             )
         );
@@ -94,6 +85,58 @@ class ReportViewerController extends ContainerAware
 
 
     /**
+     * Display a requested page from an html report
+     *
+     * @param  string $requestId The request id of the cached report
+     * @param  string $page      The page number to display
+     *
+     * @return JsonResponse      JsonResponse with the 
+     */
+    public function getPageAction($requestId, $page) {
+        $response = $this->loadPage($requestId, $page);
+        $response['toolbar'] = $this->container->get('mesd.jasper.reportviewer.linkhelper')->generateToolbarLinks(
+            $requestId, $response['page'], $response['totalPages']);
+
+        return new JsonResponse($response);
+    }
+
+
+    /**
+     * Loads a page from the report store
+     *
+     * @param  string $requestId The request id of the cached report
+     * @param  string $page      The page number to display
+     *
+     * @return array             The response array 
+     */
+    protected function loadPage($requestId, $page) {
+        //Create an array that will be converted into the json response
+        $response = array('success' => true, 'output' => '');
+
+        //Load the report
+        $rl = $this->container->get('mesd.jasperreport.loader')->getReportLoader();
+        try {
+            $report = $rl->getCachedReport($requestId, 'html', array('page' => $page));
+        } catch(\Exception $e) {
+            $response['success'] = false;
+            $response['output'] = 'An error occured trying to load the report';
+            $response['totalPages'] = 0;
+            $response['page'] = 0;
+        }
+
+        if ($response['success']) {
+            $response['success'] = !$report->getError();
+            $response['output'] = $report->getOutput();
+            $response['totalPages'] = $report->getTotalPages();
+            $response['page'] = $report->getPage();
+        }
+
+        //return the response array
+        return $response;
+    }
+
+
+    /**
      * Runs a report
      *
      * @param  string  $reportUri The jasper server uri for the report 
@@ -102,9 +145,6 @@ class ReportViewerController extends ContainerAware
      * @return JsonResponse       Json Response giving links to the output or what errors occured
      */
     public function executeAction($reportUri, Request $request) {
-        //Create the array that will be used to create the json response
-        $response = array('success' => true, 'output' => '');
-
         //Decode the report uri
         $decodedReportUri = urldecode($reportUri);
 
@@ -130,11 +170,12 @@ class ReportViewerController extends ContainerAware
         //Run the report and get the request id back
         $requestId = $rb->runReport();
 
-        //Return a route to the html output of the new report
-        $response['output'] = $this->container->get('router')->generate('MESDJasperReportViewerBundle_display_html_report', array(
-            'requestId' => $requestId,
-            'page' => '1'
-        ));
+        //Load the first page of the report for the output
+        $response = $this->loadPage($requestId, 1);
+
+        //Setup the links for the toolbar
+        $response['toolbar'] = $this->container->get('mesd.jasper.reportviewer.linkhelper')->generateToolbarLinks(
+            $requestId, $response['page'], $response['totalPages']);
 
         //Return the json response
         return new JsonResponse($response);
@@ -175,7 +216,7 @@ class ReportViewerController extends ContainerAware
                 $data['text'] = '<i id="' . $data['id'] . '-icon" class="icon-file"></i> ' . $resource->getLabel();
                 $data['children'] = false;
                 //Set the href to the report input form
-                $data['a_attr'] = array('href' => $this->container->get('router')->generate('MESDJasperReportViewerBundle_report_info', array('reportUri' => urlencode($resource->getUriString()))));
+                $data['a_attr'] = array('href' => $this->container->get('router')->generate('MESDJasperReportViewerBundle_display_report_viewer', array('reportUri' => urlencode($resource->getUriString()))));
             } elseif ('folder' === $resource->getWsType()) {
                 //Folder object specific settings
                 $data['text'] = '<i id="' . $data['id'] . '-icon" class="icon-folder-close"></i> ' . $resource->getLabel();
@@ -197,7 +238,7 @@ class ReportViewerController extends ContainerAware
      *
      * @return Response          The json representation of this reports history table
      */
-    public function reportHistoryJsonAction($reportUri) {
+    public function reportHistoryJsonAction($reportUri = null) {
         //Get the sent parameters from datatables
         $limit   = $this->container->get('request')->query->get('length');
         $offset  = $this->container->get('request')->query->get('start');
@@ -206,12 +247,22 @@ class ReportViewerController extends ContainerAware
         $response = array();
         
         //Get the history for the given report from the report history
-        $records = $this->container->get('mesd.jasperreport.history')->loadHistoryForReport(
-            urldecode($reportUri), true, array('limit' => $limit, 'offset' => $offset));
+        if ($reportUri) {
+            $records = $this->container->get('mesd.jasperreport.history')->loadHistoryForReport(
+                urldecode($reportUri), true, array('limit' => $limit, 'offset' => $offset));
 
-        //Get the count of records
-        $count = $this->container->get('mesd.jasperreport.history')->loadHistoryForReport(
-            urldecode($reportUri), true, array('count' => true));
+            //Get the count of records
+            $count = $this->container->get('mesd.jasperreport.history')->loadHistoryForReport(
+                urldecode($reportUri), true, array('count' => true));
+        } else {
+            $records = $this->container->get('mesd.jasperreport.history')->loadRecentHistory(
+                true, array('limit' => $limit, 'offset' => $offset));
+
+            //Get the count of records
+            $count = $this->container->get('mesd.jasperreport.history')->loadRecentHistory(
+                true, array('count' => true));
+        }
+
         $response['recordsTotal'] = $count;
         $response['recordsFiltered'] = $count;
 
@@ -223,11 +274,12 @@ class ReportViewerController extends ContainerAware
             foreach(json_decode($record->getFormats()) as $format) {
                 //If html handle it differently, else export like usual
                 if ('html' === $format) {
-                    $href = $this->container->get('router')->generate('MESDJasperReportViewerBundle_display_html_report', array(
-                            'requestId' => $record->getRequestId(),
-                            'page' => 1
-                        )
-                    );
+                    // $href = $this->container->get('router')->generate('MESDJasperReportViewerBundle_display_html_report', array(
+                    //         'requestId' => $record->getRequestId(),
+                    //         'page' => 1
+                    //     )
+                    // );
+                    $href = '#';
                 } else {
                     $href = $this->container->get('router')->generate('mesd_jasperreport_export_cached_report', array(
                             'requestId' => $record->getRequestId(),
@@ -240,6 +292,7 @@ class ReportViewerController extends ContainerAware
 
             //Convert to the format that datatables can read
             $response['data'][] = array(
+                $record->getReportUri(),
                 $record->getDate()->format('Y-m-d H:i:s'),
                 $record->getUsername(),
                 $record->getParameters(),

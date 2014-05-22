@@ -38,8 +38,12 @@
                             <div class="navbar-inner">
                                 <a class="brand" href="#">Report Viewer</a>
                                 <ul class="nav">
-                                    {% block navbarContent %}
-                                    {% endblock navbarContent %}
+                                    <li>
+                                        <a title="Report Home" href="{{ url('MESDJasperReportViewerBundle_home') }}"><i class="icon-home"></i> Home</a>
+                                    </li>
+                                    <li>
+                                        <a title="Report History" href="{{ url('MESDJasperReportViewerBundle_report_history') }}"><i class="icon-time"></i> History</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div><!-- END nav, navbar -->
@@ -47,6 +51,13 @@
                 </header>
 
                 <div class="wrapper wrapper-outer">
+                    {% block sidebar %}
+                        <aside class="sidebar">
+                            {% block sidebarContent %}
+                            {% endblock sidebarContent %}
+                        </aside>
+                    {% endblock sidebar %}
+
                     <div class="wrapper-inner">
                         {% block container %}
                         {% endblock container %}

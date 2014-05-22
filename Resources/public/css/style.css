@@ -13,7 +13,6 @@ body {
     background-color:      white;
 }
 
-
 .wrapper-outer {
     position:             absolute;
     width:                    100%;
@@ -28,10 +27,10 @@ body {
 .wrapper-inner {
     position:             relative;
     height:                   100%;
-    width:                    100%;
 }
 
 .sidebar {
+    position:                fixed;
     height:                   100%;
     width:                   240px;
     float:                    left;
@@ -46,12 +45,12 @@ body {
     box-shadow:         2px 0 10px 0 rgba(0,0,0,0.1);
 }
 
-.sidebar + .content {
-    margin-left: 240px;
-}
-
 .content {
     padding: 10px;
+}
+
+.sidebar + .wrapper-inner {
+    margin-left: 240px;
 }
 
 
@@ -139,6 +138,19 @@ label {
     border-radius: 0;
 }
 
+.panel {
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.panel.panel-white {
+    background-color: #fff;
+    box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
 .content {
     padding: 20px;
     -webkit-box-sizing: border-box;
@@ -157,7 +169,6 @@ label {
 }
 
 .jrPage {
-    margin: 60px auto;
     -webkit-box-shadow: 0px 4px 24px 0px rgba(0,0,0,0.2);
     -moz-box-shadow: 0px 4px 24px 0px rgba(0,0,0,0.2);
     -ms-box-shadow: 0px 4px 24px 0px rgba(0,0,0,0.2);
@@ -239,4 +250,19 @@ label {
 .paginate_button:hover {
   color: #FFFFFF;
   background: #006583;
+}
+
+.report-placeholder {
+    width: 792px;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 10px;
+    height: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.left-text {
+    text-align: left;
 }

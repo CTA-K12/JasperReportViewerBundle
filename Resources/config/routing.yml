@@ -12,14 +12,26 @@ MESDJasperReportViewerBundle_report_form:
     requirements:
         _method: POST
 
-MESDJasperReportViewerBundle_report_info:
-    pattern:  /reportinfo/{reportUri}
-    defaults: { _controller: "MESDJasperReportViewerBundle:ReportViewer:reportInfo" }
+MESDJasperReportViewerBundle_report_history:
+    pattern:  /history
+    defaults: { _controller: "MESDJasperReportViewerBundle:ReportViewer:history" }
+
+MESDJasperReportVIewerBundle_report_history_single:
+    pattern:  /history/{reportUri}
+    defaults: { _controller: "MESDJasperReportViewerBundle:ReportViewer:history" }
 
 MESDJasperReportViewerBundle_report_history_json:
-    pattern:  /reporthistory/{reportUri}
+    pattern:  /historylist
     defaults: { _controller: "MESDJasperReportViewerBundle:ReportViewer:reportHistoryJson" }
 
-MESDJasperReportViewerBundle_display_html_report:
-    pattern:  /display/{requestId}/{page}
-    defaults: { _controller: "MESDJasperReportViewerBundle:ReportViewer:displayHtmlReport" }
+MESDJasperReportViewerBundle_report_history_single_json:
+    pattern:  /historylist/{reportUri}
+    defaults: { _controller: "MESDJasperReportViewerBundle:ReportViewer:reportHistoryJson" }
+
+MESDJasperReportViewerBundle_display_report_viewer:
+    pattern:  /display/{reportUri}
+    defaults: { _controller: "MESDJasperReportViewerBundle:ReportViewer:reportViewer" }
+
+MESDJasperReportViewerBundle_display_page:
+    pattern:  /page/{requestId}/{page}
+    defaults: { _controller: "MESDJasperReportViewerBundle:ReportViewer:getPage" }

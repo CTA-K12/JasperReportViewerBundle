@@ -1,28 +1,20 @@
 {% extends 'MESDJasperReportViewerBundle::base.html.twig' %}
 
-{% block navbarContent %}
-    <li class="btn-group">
-        <a class="btn" title="Report Home" href="{{ url('MESDJasperReportViewerBundle_home') }}"><i class="icon-home"></i> Report Home</a>
-    </li>
-{% endblock navbarContent %}
+{% block sidebar %}
+{% endblock sidebar %}
 
 {% block container %}
     <section class="content">
         <div class="content-panel">
-            <h2>Report ({{ decodedReportUri }})</h2>
-            <h3>Run Report</h3>
-                <div id="report-msg"></div>
-                <div id="report-form">
-                    {{ form(form) }}
-                </div>
-            <h3>Past Reports</h3>
+            <h2>History</h2>
             <table id="dataTable" class="table table-condensed table-bordered table-striped">
                 <thead>
                     <tr>
+                        <th>Report</th>
                         <th>Date</th>
                         <th>Username</th>
                         <th>Parameters</th>
-                        <th>Report</th>
+                        <th>Output</th>
                     </tr>
                 </thead>
             </table>
@@ -37,11 +29,16 @@
     <script type="text/javascript">
         var historyTable;
         $(document).ready(function() {
+            {% if reportUri %}
+                var url = "{{ url('MESDJasperReportViewerBundle_report_history_single_json', { 'reportUri': reportUri }) }}";
+            {% else %}
+                var url = "{{ url('MESDJasperReportViewerBundle_report_history_json') }}";
+            {% endif %}
         //Convert the table with the datatable id into a datatable
             historyTable = $('#dataTable').dataTable({
                 'processing': true,
                 'serverSide': true,
-                'ajax': "{{ url('MESDJasperReportViewerBundle_report_history_json', { 'reportUri': reportUri }) }}",
+                'ajax': url,
                 'info': false,
                 'searching': false,
                 'lengthChange': false,

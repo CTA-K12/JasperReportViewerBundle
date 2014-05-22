@@ -3,3 +3,7 @@ services:
         class: MESD\Jasper\ReportViewerBundle\Twig\Extension\ReportViewerExtension
         tags:
             - { name: twig.extension }
+
+    mesd.jasper.reportviewer.linkhelper:
+        class: MESD\Jasper\ReportViewerBundle\Helper\LinkHelper
+        arguments: [ @router ]

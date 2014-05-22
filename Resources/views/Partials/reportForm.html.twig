@@ -1,0 +1,13 @@
+{% block form_row %}
+<div class="input-control">
+    {{ form_errors(form) }}
+    {{ form_label(form) }}
+    {{ form_widget(form) }}
+</div>
+{% endblock form_row %}
+
+{% block submit_widget %}
+<div class="input-control">
+    <button type="submit" class="btn">Run Report</button>
+</div>
+{% endblock submit_widget %}
