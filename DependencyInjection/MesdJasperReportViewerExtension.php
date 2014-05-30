@@ -1,13 +1,13 @@
 <?php
 
-namespace MESD\Jasper\ReportViewerBundle\DependencyInjection;
+namespace Mesd\Jasper\ReportViewerBundle\DependencyInjection;
 
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class MESDJasperReportViewerExtension extends Extension
+class MesdJasperReportViewerExtension extends Extension
 {
     public function load( array $configs, ContainerBuilder $container ) {
         $configuration = new Configuration();

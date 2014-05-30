@@ -1,4 +1,4 @@
 JasperReportViewerBundle
 ========================
 
-A viewer extension to the MESD/JasperReportBundle
+A viewer extension to the Mesd/JasperReportBundle

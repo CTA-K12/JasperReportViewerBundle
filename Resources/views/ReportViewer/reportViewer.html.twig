@@ -1,5 +1,5 @@
-{% extends 'MESDJasperReportViewerBundle::base.html.twig' %}
-{% form_theme form 'MESDJasperReportViewerBundle:Partials:reportForm.html.twig' %}
+{% extends 'MesdJasperReportViewerBundle::base.html.twig' %}
+{% form_theme form 'MesdJasperReportViewerBundle:Partials:reportForm.html.twig' %}
 
 {% block sidebarContent %}
     {{ form(form) }}
@@ -35,7 +35,7 @@
             <div class="span4">
                 <div class="btn-group pull-right">
                     <a class="btn disabled" id="print-report" title="Print" href="#"><i class="icon-print"></i></a>
-                    <a class="btn" id="report-history" title="History" href="{{ url('MESDJasperReportVIewerBundle_report_history_single', { 'reportUri': reportUri, 'hideHome': hideHome }) }}"><i class="icon-time"></i></a>
+                    <a class="btn" id="report-history" title="History" href="{{ url('MesdJasperReportVIewerBundle_report_history_single', { 'reportUri': reportUri, 'hideHome': hideHome }) }}"><i class="icon-time"></i></a>
                 </div>
             </div>
         </div>

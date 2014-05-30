@@ -16,12 +16,12 @@
                     <link rel="stylesheet" type="text/css" media="all" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
 
                     {% stylesheets
-                    '@MESDJasperReportViewerBundle/Resources/public/css/style.css'
+                    '@MesdJasperReportViewerBundle/Resources/public/css/style.css'
                     filter='cssrewrite' %}
                         <link rel="stylesheet" href="{{ asset_url }}" rel="stylesheet" media="all" />
                     {% endstylesheets %}
                     {% stylesheets
-                    '@MESDJasperReportViewerBundle/Resources/public/css/print.css'
+                    '@MesdJasperReportViewerBundle/Resources/public/css/print.css'
                     filter='cssrewrite' %}
                         <link rel="stylesheet" href="{{ asset_url }}" rel="stylesheet" media="print" />
                     {% endstylesheets %}
@@ -40,10 +40,10 @@
                                 <ul class="nav">
                                     {% block navlinks %}
                                         <li>
-                                            <a title="Report Home" href="{{ url('MESDJasperReportViewerBundle_home') }}"><i class="icon-home"></i> Home</a>
+                                            <a title="Report Home" href="{{ url('MesdJasperReportViewerBundle_home') }}"><i class="icon-home"></i> Home</a>
                                         </li>
                                         <li>
-                                            <a title="Report History" href="{{ url('MESDJasperReportViewerBundle_report_history') }}"><i class="icon-time"></i> History</a>
+                                            <a title="Report History" href="{{ url('MesdJasperReportViewerBundle_report_history') }}"><i class="icon-time"></i> History</a>
                                         </li>
                                     {% endblock navlinks %}
                                 </ul>
@@ -74,7 +74,7 @@
                     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jstree/3.0.0/jstree.min.js"></script>
                     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.0/jquery.dataTables.min.js"></script>
                     {% javascripts
-                        '@MESDJasperReportViewerBundle/Resources/public/js/*'
+                        '@MesdJasperReportViewerBundle/Resources/public/js/*'
                         %}
                         <script type="text/javascript" src="{{ asset_url }}"></script>
                     {% endjavascripts %}

@@ -1,6 +1,6 @@
 <?php
 
-namespace MESD\Jasper\ReportViewerBundle\DependencyInjection;
+namespace Mesd\Jasper\ReportViewerBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -11,7 +11,7 @@ class Configuration implements ConfigurationInterface
     {
         $builder = new TreeBuilder();
 
-        $builder->root('mesd_jasper_report_viewer')
+        $builder->root('Mesd_jasper_report_viewer')
             ->addDefaultsIfNotSet()
             ->children()
             ->end()

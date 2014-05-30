@@ -1,41 +1,41 @@
-MESDJasperReportViewerBundle_home:
+MesdJasperReportViewerBundle_home:
     pattern:  /
-    defaults: { _controller: "MESDJasperReportViewerBundle:ReportViewer:home" }
+    defaults: { _controller: "MesdJasperReportViewerBundle:ReportViewer:home" }
 
-MESDJasperReportViewerBundle_reports_json:
+MesdJasperReportViewerBundle_reports_json:
     pattern:  /list/json
-    defaults: { _controller: "MESDJasperReportViewerBundle:ReportViewer:listJson"}
+    defaults: { _controller: "MesdJasperReportViewerBundle:ReportViewer:listJson"}
 
-MESDJasperReportViewerBundle_report_form:
+MesdJasperReportViewerBundle_report_form:
     pattern:  /execute/{reportUri}
-    defaults: { _controller: "MESDJasperReportViewerBundle:ReportViewer:execute" }
+    defaults: { _controller: "MesdJasperReportViewerBundle:ReportViewer:execute" }
     requirements:
         _method: POST
 
-MESDJasperReportViewerBundle_report_history:
+MesdJasperReportViewerBundle_report_history:
     pattern:  /history
-    defaults: { _controller: "MESDJasperReportViewerBundle:ReportViewer:history" }
+    defaults: { _controller: "MesdJasperReportViewerBundle:ReportViewer:history" }
 
-MESDJasperReportVIewerBundle_report_history_single:
+MesdJasperReportVIewerBundle_report_history_single:
     pattern:  /history/{reportUri}
-    defaults: { _controller: "MESDJasperReportViewerBundle:ReportViewer:history" }
+    defaults: { _controller: "MesdJasperReportViewerBundle:ReportViewer:history" }
 
-MESDJasperReportViewerBundle_report_history_json:
+MesdJasperReportViewerBundle_report_history_json:
     pattern:  /historylist
-    defaults: { _controller: "MESDJasperReportViewerBundle:ReportViewer:reportHistoryJson" }
+    defaults: { _controller: "MesdJasperReportViewerBundle:ReportViewer:reportHistoryJson" }
 
-MESDJasperReportViewerBundle_report_history_single_json:
+MesdJasperReportViewerBundle_report_history_single_json:
     pattern:  /historylist/{reportUri}
-    defaults: { _controller: "MESDJasperReportViewerBundle:ReportViewer:reportHistoryJson" }
+    defaults: { _controller: "MesdJasperReportViewerBundle:ReportViewer:reportHistoryJson" }
 
-MESDJasperReportViewerBundle_display_report_viewer:
+MesdJasperReportViewerBundle_display_report_viewer:
     pattern:  /display/{reportUri}
-    defaults: { _controller: "MESDJasperReportViewerBundle:ReportViewer:reportViewer" }
+    defaults: { _controller: "MesdJasperReportViewerBundle:ReportViewer:reportViewer" }
 
-MESDJasperReportViewerBundle_display_history_report_viewer:
+MesdJasperReportViewerBundle_display_history_report_viewer:
     pattern:  /historydisplay/{reportUri}/{existing}
-    defaults: { _controller: "MESDJasperReportViewerBundle:ReportViewer:reportViewer" }
+    defaults: { _controller: "MesdJasperReportViewerBundle:ReportViewer:reportViewer" }
 
-MESDJasperReportViewerBundle_display_page:
+MesdJasperReportViewerBundle_display_page:
     pattern:  /page/{requestId}/{page}
-    defaults: { _controller: "MESDJasperReportViewerBundle:ReportViewer:getPage" }
+    defaults: { _controller: "MesdJasperReportViewerBundle:ReportViewer:getPage" }

@@ -1,6 +1,6 @@
 <?php
 
-namespace MESD\Jasper\ReportViewerBundle\Twig\Extension;
+namespace Mesd\Jasper\ReportViewerBundle\Twig\Extension;
 
 class ReportViewerExtension extends \Twig_Extension
 {
@@ -18,14 +18,14 @@ class ReportViewerExtension extends \Twig_Extension
     public function getFunctions() {
         //Function definition
         return array(
-            'mesd_jasper_reportviewer_stored_report_link' => new \Twig_Function_Method($this, 'renderStoredReportLink',  array('is_safe' => array('html'))),
-            'mesd_jasper_reportviewer_report_link' => new \Twig_Function_Method($this, 'renderReportLink',  array('is_safe' => array('html')))
+            'Mesd_jasper_reportviewer_stored_report_link' => new \Twig_Function_Method($this, 'renderStoredReportLink',  array('is_safe' => array('html'))),
+            'Mesd_jasper_reportviewer_report_link' => new \Twig_Function_Method($this, 'renderReportLink',  array('is_safe' => array('html')))
         );
     }
 
     //Returns the name of this extension (this is required)
     public function getName() {
-        return 'mesd_jasper_reportviewer_extension';
+        return 'Mesd_jasper_reportviewer_extension';
     }
 
 
@@ -46,7 +46,7 @@ class ReportViewerExtension extends \Twig_Extension
      */
     public function renderReportLink($reportUri, $linkText, $classes = ' ', $openInNewTab = true, $hideHome = true) {
         return $this->environment->render(
-            'MESDJasperReportViewerBundle:Partials:reportLink.html.twig', 
+            'MesdJasperReportViewerBundle:Partials:reportLink.html.twig', 
                 array(
                     'reportUri' => $reportUri,
                     'linkText' => $linkText,
@@ -70,7 +70,7 @@ class ReportViewerExtension extends \Twig_Extension
      */
     public function renderStoredReportLink($reportUri, $requestId, $linkText, $classes = ' ', $openInNewTab = true, $hideHome = true) {
         return $this->environment->render(
-            'MESDJasperReportViewerBundle:Partials:storedReportLink.html.twig', 
+            'MesdJasperReportViewerBundle:Partials:storedReportLink.html.twig', 
             array(
                 'reportUri' => $reportUri,
                 'requestId' => $requestId,

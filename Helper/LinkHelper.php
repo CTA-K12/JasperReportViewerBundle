@@ -1,6 +1,6 @@
 <?php
 
-namespace MESD\Jasper\ReportViewerBundle\Helper;
+namespace Mesd\Jasper\ReportViewerBundle\Helper;
 
 use Symfony\Component\Routing\Router;
 
@@ -51,11 +51,11 @@ class LinkHelper
         $links = array();
 
         //Generate the export links
-        $links['pdf'] = $this->router->generate('mesd_jasperreport_export_cached_report', array(
+        $links['pdf'] = $this->router->generate('MesdJasperReportBundle_export_cached_report', array(
                 'requestId' => $requestId,
                 'format'    => 'pdf'
             ));
-        $links['xls'] = $this->router->generate('mesd_jasperreport_export_cached_report', array(
+        $links['xls'] = $this->router->generate('MesdJasperReportBundle_export_cached_report', array(
                 'requestId' => $requestId,
                 'format'    => 'xls'
             ));
@@ -65,7 +65,7 @@ class LinkHelper
 
         //Generate the page links
         if ($page != 1) {
-            $links['first'] = $this->router->generate('MESDJasperReportViewerBundle_display_page', array(
+            $links['first'] = $this->router->generate('MesdJasperReportViewerBundle_display_page', array(
                     'requestId' => $requestId,
                     'page' => 1
                 ));
@@ -74,7 +74,7 @@ class LinkHelper
         }
 
         if (0 < $page - 10) {
-            $links['back10'] = $this->router->generate('MESDJasperReportViewerBundle_display_page', array(
+            $links['back10'] = $this->router->generate('MesdJasperReportViewerBundle_display_page', array(
                     'requestId' => $requestId,
                     'page' => $page - 10
                 ));
@@ -83,7 +83,7 @@ class LinkHelper
         }
 
         if (0 < $page - 1) {
-            $links['back'] = $this->router->generate('MESDJasperReportViewerBundle_display_page', array(
+            $links['back'] = $this->router->generate('MesdJasperReportViewerBundle_display_page', array(
                     'requestId' => $requestId,
                     'page' => $page - 1
                 ));
@@ -92,7 +92,7 @@ class LinkHelper
         }
 
         if ($page + 1 <= $totalPages) {
-            $links['forward'] = $this->router->generate('MESDJasperReportViewerBundle_display_page', array(
+            $links['forward'] = $this->router->generate('MesdJasperReportViewerBundle_display_page', array(
                     'requestId' => $requestId,
                     'page' => $page + 1
                 ));
@@ -101,7 +101,7 @@ class LinkHelper
         }
 
         if ($page + 10 <= $totalPages) {
-            $links['forward10'] = $this->router->generate('MESDJasperReportViewerBundle_display_page', array(
+            $links['forward10'] = $this->router->generate('MesdJasperReportViewerBundle_display_page', array(
                     'requestId' => $requestId,
                     'page' => $page + 10
                 ));
@@ -110,7 +110,7 @@ class LinkHelper
         }
 
         if ($page != $totalPages) {
-            $links['last']  = $this->router->generate('MESDJasperReportViewerBundle_display_page', array(
+            $links['last']  = $this->router->generate('MesdJasperReportViewerBundle_display_page', array(
                     'requestId' => $requestId,
                     'page' => $totalPages
                 ));

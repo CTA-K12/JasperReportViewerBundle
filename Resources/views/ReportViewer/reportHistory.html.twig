@@ -1,4 +1,4 @@
-{% extends 'MESDJasperReportViewerBundle::base.html.twig' %}
+{% extends 'MesdJasperReportViewerBundle::base.html.twig' %}
 
 {% block sidebar %}
 {% endblock sidebar %}
@@ -37,9 +37,9 @@
         var historyTable;
         $(document).ready(function() {
             {% if reportUri %}
-                var url = "{{ url('MESDJasperReportViewerBundle_report_history_single_json', { 'reportUri': reportUri }) }}";
+                var url = "{{ url('MesdJasperReportViewerBundle_report_history_single_json', { 'reportUri': reportUri }) }}";
             {% else %}
-                var url = "{{ url('MESDJasperReportViewerBundle_report_history_json') }}";
+                var url = "{{ url('MesdJasperReportViewerBundle_report_history_json') }}";
             {% endif %}
         //Convert the table with the datatable id into a datatable
             historyTable = $('#dataTable').dataTable({
