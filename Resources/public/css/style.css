@@ -13,6 +13,15 @@ body {
     background-color:      white;
 }
 
+.btn-group-centered {
+    display: inherit;
+    text-align: center;
+}
+
+.navbar .brand {
+    margin-left: -5px;
+}
+
 .wrapper-outer {
     position:             absolute;
     width:                    100%;
