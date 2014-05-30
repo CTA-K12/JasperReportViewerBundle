@@ -3,6 +3,14 @@
 {% block sidebar %}
 {% endblock sidebar %}
 
+{% block navlinks %}
+    {% if 'false' != hideHome %}
+
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock navlinks %}
+
 {% block container %}
     <section class="content">
         <div class="content-panel">
@@ -12,7 +20,6 @@
                     <tr>
                         <th>Report</th>
                         <th>Date</th>
-                        <th>Username</th>
                         <th>Parameters</th>
                         <th>Output</th>
                     </tr>

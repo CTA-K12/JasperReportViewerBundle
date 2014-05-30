@@ -2,8 +2,6 @@ var processIndicatorCount = 0;
 var processIndicatorMax = 5;
 var processingInterval;
 
-var requestId;
-
 $(document).ready(function() {
     $('form').on('submit', function(e) {
         console.log('Supersaurus Rex');
@@ -46,12 +44,23 @@ $(document).ready(function() {
         if ('#' != $(this).attr('href')) {
             $.ajax({
                 type: 'GET',
-                url: $(this).attr('href'),
+                url: $(this).attr('href')
                 })
             .done(function(data) { handleSuccess(data); })
             .fail(function(data) { handleFailure(data); });
         }
     });
+
+    //If preload is set, load the report automatically
+    if ('undefined' !== typeof preload && null !== preload) {
+        $.ajax({
+            type: 'GET',
+            url: preload
+            })
+        .done(function(data) { handleSuccess(data); })
+        .fail(function(data) { handleFailure(data); });
+
+    }
 });
 
 function disableForm(form) {
@@ -65,9 +74,6 @@ function enableForm(form) {
 function handleSuccess(data) {
     stopProcessingMessage();
     if (data['success']) {
-        //Set the request id
-        requestId = data['requestId'];
-
         //Go ahead and set the first page
         displayPage(data['output']);
 

@@ -31,10 +31,11 @@ class ReportViewerController extends ContainerAware
      * Display a requested page from an html report
      *
      * @param  string $reportUri The jasper server uri of the report to display the viewer for
+     * @param  string $existing  Optional requestId of an existing report to preload when loading from history
      *
      * @return Response  The rendered page
      */
-    public function reportViewerAction($reportUri) {
+    public function reportViewerAction($reportUri, $existing = null) {
         //Determine whether to show or hide the report home button
         $hideHome = $this->container->get('request')->query->get('hideHome') ?: 'false';
 
@@ -47,11 +48,20 @@ class ReportViewerController extends ContainerAware
             )
         );
 
+        //If existing is set then create the route to preload from
+        if (null !== $existing) {
+            $preload = $this->container->get('router')->generate('MESDJasperReportViewerBundle_display_page', array(
+                'requestId' => $existing, 'page' => 1));
+        } else {
+            $preload = null;
+        }
+
         //Display
         $response = new Response($this->container->get('templating')->render( 'MESDJasperReportViewerBundle:ReportViewer:reportViewer.html.twig'
             , array(
                 'hideHome' => $hideHome,
                 'reportUri' => $reportUri,
+                'preload' => $preload,
                 'form' => $form->createView()
             )
         ));
@@ -68,10 +78,14 @@ class ReportViewerController extends ContainerAware
      * @return Response          Rendered page
      */
     public function historyAction($reportUri = null) {
+        //Determine whether to show or hide the report home button
+        $hideHome = $this->container->get('request')->query->get('hideHome') ?: 'false';
+
         //Render and return
         $response = new Response($this->container->get('templating')->render(
             'MESDJasperReportViewerBundle:ReportViewer:reportHistory.html.twig', array(
-                'reportUri' => $reportUri
+                'reportUri' => $reportUri,
+                'hideHome' => $hideHome
                 )
             )
         );
@@ -247,17 +261,14 @@ class ReportViewerController extends ContainerAware
         $response = array();
         
         //Get the history for the given report from the report history
-        if ($reportUri) {
-            $records = $this->container->get('mesd.jasperreport.history')->loadHistoryForReport(
-                urldecode($reportUri), true, array('limit' => $limit, 'offset' => $offset));
+        $records = $this->container->get('mesd.jasperreport.history')->getReportHistoryDisplay(
+            urldecode($reportUri), true, array('limit' => $limit, 'offset' => $offset));
 
+        if ($reportUri) {
             //Get the count of records
             $count = $this->container->get('mesd.jasperreport.history')->loadHistoryForReport(
                 urldecode($reportUri), true, array('count' => true));
         } else {
-            $records = $this->container->get('mesd.jasperreport.history')->loadRecentHistory(
-                true, array('limit' => $limit, 'offset' => $offset));
-
             //Get the count of records
             $count = $this->container->get('mesd.jasperreport.history')->loadRecentHistory(
                 true, array('count' => true));
@@ -271,18 +282,17 @@ class ReportViewerController extends ContainerAware
         foreach($records as $record) {
             //Create the links
             $links = array();
-            foreach(json_decode($record->getFormats()) as $format) {
+            foreach(json_decode($record['formats']) as $format) {
                 //If html handle it differently, else export like usual
                 if ('html' === $format) {
-                    // $href = $this->container->get('router')->generate('MESDJasperReportViewerBundle_display_html_report', array(
-                    //         'requestId' => $record->getRequestId(),
-                    //         'page' => 1
-                    //     )
-                    // );
-                    $href = '#';
+                    $href = $this->container->get('router')->generate('MESDJasperReportViewerBundle_display_history_report_viewer', array(
+                            'reportUri' => urlencode($record['report']),
+                            'existing' => $record['requestId']
+                        )
+                    );
                 } else {
                     $href = $this->container->get('router')->generate('mesd_jasperreport_export_cached_report', array(
-                            'requestId' => $record->getRequestId(),
+                            'requestId' => $record['requestId'],
                             'format' => $format
                         )
                     );
@@ -292,10 +302,9 @@ class ReportViewerController extends ContainerAware
 
             //Convert to the format that datatables can read
             $response['data'][] = array(
-                $record->getReportUri(),
-                $record->getDate()->format('Y-m-d H:i:s'),
-                $record->getUsername(),
-                $record->getParameters(),
+                $record['report'],
+                $record['date']->format('Y-m-d H:i:s'),
+                $record['parameters'],
                 implode('  ', $links)
             );
         }

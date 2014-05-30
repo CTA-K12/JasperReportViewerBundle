@@ -5,6 +5,14 @@
     {{ form(form) }}
 {% endblock sidebarContent %}
 
+{% block navlinks %}
+    {% if 'false' != hideHome %}
+        {{ hideHome }}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock navlinks %}
+
 {% block container %}
     <div class="panel panel-white">
         <div class="row-fluid">
@@ -27,7 +35,7 @@
             <div class="span4">
                 <div class="btn-group pull-right">
                     <a class="btn disabled" id="print-report" title="Print" href="#"><i class="icon-print"></i></a>
-                    <a class="btn" id="report-history" title="History" href="{{ url('MESDJasperReportVIewerBundle_report_history_single', { 'reportUri': reportUri }) }}"><i class="icon-time"></i></a>
+                    <a class="btn" id="report-history" title="History" href="{{ url('MESDJasperReportVIewerBundle_report_history_single', { 'reportUri': reportUri, 'hideHome': hideHome }) }}"><i class="icon-time"></i></a>
                 </div>
             </div>
         </div>
@@ -44,15 +52,32 @@
                     <td align="center">
                         <div id="report-output">
                             <div class="report-placeholder left-text">
+                                {% if preload %}
+                                    <h3>Loading...</h3>
+                                {% else %}
                                 <h3>Running a Report</h3>
                                 <p>To run a new report, fill out the input controls on the left sidebar and press the run report button.  Some input fields are required to be filled in to run the report.  Not all reports have input controls, and can be ran by just pressing the run report button</p>
                                 <h3>Viewing Report History</h3>
                                 <p>To view the past instances of this report you have generated, press the history button, the button with the clock icon at the very right of the report toolbar, to go to a page detailing the past times you've ran this report</p>
+                                {% endif %}
                             </div>
                         </div>
                     </td>
                     <td width="50%">&nbsp;</td>
                 </tr>
             </tbody>
+        </table>
     </section>
 {% endblock container %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        {% if preload %}
+            var preload = "{{ preload }}";
+        {% else %}
+            var preload = null;
+        {% endif %}
+    </script>
+{% endblock javascripts %}

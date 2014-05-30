@@ -38,12 +38,14 @@
                             <div class="navbar-inner">
                                 <a class="brand" href="#">Report Viewer</a>
                                 <ul class="nav">
-                                    <li>
-                                        <a title="Report Home" href="{{ url('MESDJasperReportViewerBundle_home') }}"><i class="icon-home"></i> Home</a>
-                                    </li>
-                                    <li>
-                                        <a title="Report History" href="{{ url('MESDJasperReportViewerBundle_report_history') }}"><i class="icon-time"></i> History</a>
-                                    </li>
+                                    {% block navlinks %}
+                                        <li>
+                                            <a title="Report Home" href="{{ url('MESDJasperReportViewerBundle_home') }}"><i class="icon-home"></i> Home</a>
+                                        </li>
+                                        <li>
+                                            <a title="Report History" href="{{ url('MESDJasperReportViewerBundle_report_history') }}"><i class="icon-time"></i> History</a>
+                                        </li>
+                                    {% endblock navlinks %}
                                 </ul>
                             </div>
                         </div><!-- END nav, navbar -->
