@@ -18,20 +18,40 @@ class ReportViewerExtension extends \Twig_Extension
     public function getFunctions() {
         //Function definition
         return array(
-            'Mesd_jasper_reportviewer_stored_report_link' => new \Twig_Function_Method($this, 'renderStoredReportLink',  array('is_safe' => array('html'))),
-            'Mesd_jasper_reportviewer_report_link' => new \Twig_Function_Method($this, 'renderReportLink',  array('is_safe' => array('html')))
+            'mesd_jasper_reportviewer_stored_report_link' => new \Twig_Function_Method($this, 'renderStoredReportLink',  array('is_safe' => array('html'))),
+            'mesd_jasper_reportviewer_report_link' => new \Twig_Function_Method($this, 'renderReportLink',  array('is_safe' => array('html'))),
+            'mesd_jasper_reportviewer_home' => new \Twig_Function_Method($this, 'renderReportHome', array('is_safe' => array('html')))
         );
     }
 
     //Returns the name of this extension (this is required)
     public function getName() {
-        return 'Mesd_jasper_reportviewer_extension';
+        return 'mesd_jasper_reportviewer_extension';
     }
 
 
     ///////////////
     // FUNCTIONS //
     ///////////////
+
+
+    /**
+     * Render a link to the report viewer home
+     *
+     * @param  [type]  $linkText       [description]
+     * @param  string  $class          [description]
+     * @param  boolean $optionInNewTab [description]
+     *
+     * @return [type]                  [description]
+     */
+    public function renderReportHome($linkText, $classes = ' ', $openInNewTab = true) {
+        return $this->environment->render(
+            'MesdJasperReportViewerBundle:Partials:reportHome.html.twig', 
+                array(
+                    'linkText' => $linkText,
+                    'classes' => $classes,
+                    'openInNewTab' => $openInNewTab));
+    }
 
     /**
      * Renders a link to a report
