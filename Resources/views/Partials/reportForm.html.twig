@@ -1,7 +1,7 @@
 {% block form_row %}
 <div class="input-control">
-    {{ form_errors(form) }}
     {{ form_label(form) }}
+    <div id="errors_{{ form.vars['id'] }}"></div>
     {{ form_widget(form) }}
 </div>
 {% endblock form_row %}

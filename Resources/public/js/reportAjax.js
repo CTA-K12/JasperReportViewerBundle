@@ -4,7 +4,6 @@ var processingInterval;
 
 $(document).ready(function() {
     $('form').on('submit', function(e) {
-        console.log('Supersaurus Rex');
         //Prevent the normal submission
         e.preventDefault();
 
@@ -80,8 +79,45 @@ function handleSuccess(data) {
         //Setup the toolbat
         setupToolbar(data['toolbar']);
     } else {
-        displayErrorMessage();
+        displayFormErrors(data['errors']);
     }
+}
+
+function displayFormErrors(errors) {
+    //Get the top level errors (global errors)
+    if (0 < errors.errors.length) {
+        $('#errors_form').html(createErrorMessageBlock(errors.errors));
+    }
+
+    //Foreach child node check it it has errors
+    var children = Object.keys(errors.children);
+    for(var i = 0; i < children.length; i++) {
+        displayFormChildErrors(children[i], errors.children[children[i]]);
+    }
+}
+
+function displayFormChildErrors(id, errors) {
+    console.log(errors);
+    //Display the errors
+    if (0 < errors.errors.length) {
+        $('#errors_form_' + id).html(createErrorMessageBlock(errors.errors));
+    }
+
+    //Call again foreach child
+    var children = Object.keys(errors.children);
+    console.log(children);
+    for(var i = 0; i < children.length; i++) {
+        displayFormChildErrors(children[i], errors.children[children[i]]);
+    }
+}
+
+function createErrorMessageBlock(errors) {
+    var messageArray = [];
+    for(var i = 0; i < errors.length; i++) {
+        messageArray[i] = '<li><p class="text-error">' + errors[i] + '</p></li>';
+    }
+    var messageBlock = '<div><ul>' + messageArray.join() + '</ul></div>';
+    return messageBlock;
 }
 
 function handleFailure(data) {
