@@ -78,8 +78,10 @@ function handleSuccess(data) {
 
         //Setup the toolbat
         setupToolbar(data['toolbar']);
-    } else {
+    } else if('undefined' !== typeof data['errors'] && null !== data['errors']) {
         displayFormErrors(data['errors']);
+    } else {
+        handleFailure(data);
     }
 }
 
