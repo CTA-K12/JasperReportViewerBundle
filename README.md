@@ -95,6 +95,6 @@ API Documentation
 =================
 Generated documentation exists in the bundle under the docs directory.
 
-Lincense
+License
 ========
 This project is licensed under the MIT license.  See the [LICENSE.md](LICENSE.md) file for more information.
