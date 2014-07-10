@@ -37,7 +37,7 @@ In order for the application to load the bundle, it needs to be registered in th
 public function registerBundles() {
     $bundles = array(
         ...
-        new Mesd\Jasper\ReportViewerBundle\MesdJasperReportViewerBundle()
+        new Mesd\Jasper\ReportViewerBundle\MesdJasperReportViewerBundle(),
     )
 }
 ```
