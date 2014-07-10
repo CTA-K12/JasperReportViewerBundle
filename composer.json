@@ -8,7 +8,6 @@
     },
     "target-dir": "Mesd/Jasper/ReportViewerBundle",
     "require": {
-        "mesd/jasper-client": "dev-report-bundle",
-        "mesd/jasper-report-bundle": "dev-master"
+        "mesd/jasper-report-bundle": "1.0.0-alpha-002"
     }
 }
