@@ -55,7 +55,7 @@ assetic:
 The final step is to include the report viewer's routing file in the main application's routing file.  Look at the example below:
 ```yaml
 MESDJasperReportViewerBundle:
-    resource: "@MesdJasperRportViewerBundle/Resources/config/routing.yml"
+    resource: "@MesdJasperReportViewerBundle/Resources/config/routing.yml"
     prefix: /reportviewer
 ```
 
