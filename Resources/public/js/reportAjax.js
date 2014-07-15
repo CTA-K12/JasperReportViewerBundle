@@ -124,8 +124,6 @@ function createErrorMessageBlock(errors) {
 
 function handleFailure(data) {
     stopProcessingMessage();
-    console.log(data.output);
-    console.log("The report is empty" == data.output);
     if ("The report is empty" == data.output) {
         displayEmptyMessage();
     } else {
