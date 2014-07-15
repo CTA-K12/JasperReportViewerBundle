@@ -20,7 +20,7 @@ class ReportViewerController extends ContainerAware
 
 
     /**
-     * Displays the report home and the list of reports from the default 
+     * Displays the report home and the list of reports from the default
      *
      * @return Response The rendered home page
      */
@@ -108,7 +108,7 @@ class ReportViewerController extends ContainerAware
      * @param  string $requestId The request id of the cached report
      * @param  string $page      The page number to display
      *
-     * @return JsonResponse      JsonResponse with the 
+     * @return JsonResponse      JsonResponse with the
      */
     public function getPageAction($requestId, $page) {
         $response = $this->loadPage($requestId, $page);
@@ -125,7 +125,7 @@ class ReportViewerController extends ContainerAware
      * @param  string $requestId The request id of the cached report
      * @param  string $page      The page number to display
      *
-     * @return array             The response array 
+     * @return array             The response array
      */
     protected function loadPage($requestId, $page) {
         //Create an array that will be converted into the json response
@@ -157,7 +157,7 @@ class ReportViewerController extends ContainerAware
     /**
      * Runs a report
      *
-     * @param  string  $reportUri The jasper server uri for the report 
+     * @param  string  $reportUri The jasper server uri for the report
      * @param  Request $request   The request from the submitted request input form
      *
      * @return JsonResponse       Json Response giving links to the output or what errors occured
@@ -184,7 +184,6 @@ class ReportViewerController extends ContainerAware
         $rb->setInputParametersArray($form->getData());
         $rb->setFormat('html');
         $rb->setPage(1);
-
         //Run the report and get the request id back
         $requestId = $rb->runReport();
 
@@ -194,6 +193,7 @@ class ReportViewerController extends ContainerAware
         //Setup the links for the toolbar
         $response['toolbar'] = $this->container->get('mesd.jasper.reportviewer.linkhelper')->generateToolbarLinks(
             $requestId, $response['page'], $response['totalPages']);
+
 
         //Return the json response
         return new JsonResponse($response);
@@ -263,7 +263,7 @@ class ReportViewerController extends ContainerAware
 
         //Create a new repsonse array that will be converted to json
         $response = array();
-        
+
         //Get the history for the given report from the report history
         $records = $this->container->get('mesd.jasper.report.history')->getReportHistoryDisplay(
             urldecode($reportUri), true, array('limit' => $limit, 'offset' => $offset));

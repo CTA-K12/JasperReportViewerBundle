@@ -124,11 +124,21 @@ function createErrorMessageBlock(errors) {
 
 function handleFailure(data) {
     stopProcessingMessage();
-    displayErrorMessage();
+    console.log(data.output);
+    console.log("The report is empty" == data.output);
+    if ("The report is empty" == data.output) {
+        displayEmptyMessage();
+    } else {
+        displayErrorMessage();
+    }
 }
 
 function displayErrorMessage() {
     $('#report-output').html('<div class="report-placeholder"><h3 class="text-error">An error occured when running the report</h3></div>');
+}
+
+function displayEmptyMessage() {
+    $('#report-output').html('<div class="report-placeholder"><h3 class="text-error">The selected parameters return no results</h3></div>');
 }
 
 function showProcessingMessage() {
