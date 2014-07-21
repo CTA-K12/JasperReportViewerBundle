@@ -87,11 +87,12 @@ or:
     public function indexAction( Request $request ) {
         $sc = $this->get('security.context');
         if ( $sc->isGranted('ROLE_REPORT') ) {
-            return $this->redirect($this->generateUrl(
-                'MesdJasperReportViewerBundle_home',
-                array('openInNewTab' => true ) ) 
+            return $this->redirect(
+                $this->generateUrl(
+                    'MesdJasperReportViewerBundle_home',
+                    array( 'openInNewTab' => true )
+                )
             );
-        } 
     }
 ```
 
