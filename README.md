@@ -72,6 +72,28 @@ To add links to the report home and report viewer use the following twig functio
 {# stored report link #}
 {{ mesd_jasper_reportviewer_stored_report_link('/reports/uri_of_report', 'requestId', 'Link Text') }}
 ``` 
+
+These routes may also be used in controllers:
+```PHP
+    public function indexAction( Request $request ) {
+        $sc = $this->get('security.context');
+        if ( $sc->isGranted('ROLE_REPORT') ) {
+            return $this->redirect($this->generateUrl('MesdJasperReportViewerBundle_home'));
+        } 
+    }
+```
+or:
+```PHP
+    public function indexAction( Request $request ) {
+        $sc = $this->get('security.context');
+        if ( $sc->isGranted('ROLE_REPORT') ) {
+            return $this->redirect($this->generateUrl('MesdJasperReportViewerBundle_home', array('openInNewTab' => true ) ) );
+        } 
+    }
+```
+
+
+
 A further look at each function:
 - mesd_jasper_reportviewer_home(linkText, classes = ' ', openInNewTab = true)
   - linkText => The text to display on the link
