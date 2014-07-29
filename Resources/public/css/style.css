@@ -19,7 +19,9 @@ body {
 }
 
 .navbar .brand {
-    margin-left: -5px;
+    margin-left: -10px;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
 .wrapper-outer {
@@ -54,7 +56,7 @@ body {
     box-shadow:         2px 0 10px 0 rgba(0,0,0,0.1);
 }
 
-.content {
+.report-content {
     padding: 10px;
 }
 
