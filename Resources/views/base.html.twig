@@ -16,11 +16,13 @@
 
                     {% stylesheets
                     '@MesdJasperReportViewerBundle/Resources/public/css/style.css'
+                    output="bundles/mesdjasperreportviewer/css/style.css"
                     filter='cssrewrite' %}
                         <link rel="stylesheet" href="{{ asset_url }}" rel="stylesheet" media="all" />
                     {% endstylesheets %}
                     {% stylesheets
                     '@MesdJasperReportViewerBundle/Resources/public/css/print.css'
+                    output="bundles/mesdjasperreportviewer/css/print.css"
                     filter='cssrewrite' %}
                         <link rel="stylesheet" href="{{ asset_url }}" rel="stylesheet" media="print" />
                     {% endstylesheets %}
@@ -58,6 +60,7 @@
                     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.0/jquery.dataTables.min.js"></script>
                     {% javascripts
                         '@MesdJasperReportViewerBundle/Resources/public/js/*'
+                        output='bundles/mesdjasperreportviewer/js/mesdjasperreportviewer.js'
                         %}
                         <script type="text/javascript" src="{{ asset_url }}"></script>
                     {% endjavascripts %}

@@ -84,5 +84,10 @@
     {% else %}
     var preload = null;
     {% endif %}
+    {% if autoRun %}
+    var autorun = "{{ autoRun }}";
+    {% else %}
+    var autorun = null;
+    {% endif %}
     </script>
 {% endblock javascripts %}

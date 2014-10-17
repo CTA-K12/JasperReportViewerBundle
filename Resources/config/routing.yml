@@ -36,6 +36,10 @@ MesdJasperReportViewerBundle_display_history_report_viewer:
     pattern:  /historydisplay/{reportUri}/{existing}
     defaults: { _controller: "MesdJasperReportViewerBundle:ReportViewer:reportViewer" }
 
+MesdJasperReportViewerBundle_display_direct_report_viewer:
+    pattern:  /displaydirect/{reportUri}/{direct}
+    defaults: { _controller: "MesdJasperReportViewerBundle:ReportViewer:reportViewer" }
+
 MesdJasperReportViewerBundle_display_page:
     pattern:  /page/{requestId}/{page}
     defaults: { _controller: "MesdJasperReportViewerBundle:ReportViewer:getPage" }

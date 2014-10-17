@@ -36,36 +36,49 @@ class ReportViewerController extends ContainerAware
      *
      * @param  string $reportUri The jasper server uri of the report to display the viewer for
      * @param  string $existing  Optional requestId of an existing report to preload when loading from history
+     * @param  array  $direct    Optional array of report parameters to automatically run a report on load (Note this array should be encoded)
      *
      * @return Response  The rendered page
      */
-    public function reportViewerAction($reportUri, $existing = null) {
+    public function reportViewerAction($reportUri, $existing = null, $direct = null) {
         //Determine whether to show or hide the report home button
         $hideHome = $this->container->get('request')->query->get('hideHome') ?: 'false';
+
+        //Set the defaults
+        $preload = null;
+        $autoRun = false;
+        $data = null;
+
+        //If existing is set then create the route to preload from
+        if (null !== $existing) {
+            $preload = $this->container->get('router')->generate('MesdJasperReportViewerBundle_display_page', array(
+                'requestId' => $existing, 'page' => 1));
+        }
+
+        //If direct is set then prep a call to the execute action
+        if (null !== $direct && $preload === null) {
+            //Decode the array
+            $data = unserialize(urldecode($direct));
+            $autoRun = true;
+        }
 
         //Build the form
         $form = $this->container->get('mesd.jasper.report.client')->buildReportInputForm(
             urldecode($reportUri), 'MesdJasperReportViewerBundle_report_form', array(
                 'routeParameters' => array(
                     'reportUri' => $reportUri
-                )
+                ),
+                'data' => $data
             )
         );
 
-        //If existing is set then create the route to preload from
-        if (null !== $existing) {
-            $preload = $this->container->get('router')->generate('MesdJasperReportViewerBundle_display_page', array(
-                'requestId' => $existing, 'page' => 1));
-        } else {
-            $preload = null;
-        }
-
         //Display
-        $response = new Response($this->container->get('templating')->render( 'MesdJasperReportViewerBundle:ReportViewer:reportViewer.html.twig'
+        $response = new Response($this->container->get('templating')->render('MesdJasperReportViewerBundle:ReportViewer:reportViewer.html.twig'
             , array(
                 'hideHome' => $hideHome,
                 'reportUri' => $reportUri,
                 'preload' => $preload,
+                'autoRun' => $autoRun,
                 'form' => $form->createView()
             )
         ));
@@ -193,7 +206,6 @@ class ReportViewerController extends ContainerAware
         //Setup the links for the toolbar
         $response['toolbar'] = $this->container->get('mesd.jasper.reportviewer.linkhelper')->generateToolbarLinks(
             $requestId, $response['page'], $response['totalPages']);
-
 
         //Return the json response
         return new JsonResponse($response);

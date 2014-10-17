@@ -58,7 +58,8 @@ $(document).ready(function() {
             })
         .done(function(data) { handleSuccess(data); })
         .fail(function(data) { handleFailure(data); });
-
+    } else if('undefined' !== typeof autorun && null !== autorun) {
+        $('form').submit();
     }
 });
 
