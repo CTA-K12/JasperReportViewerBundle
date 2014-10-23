@@ -20,14 +20,8 @@ The report viewer bundle requires the report bundle to have been set up in order
 ###Add to Composer
 The first step is to add the bundle to the composer.json of the application.
 ```javascript
-"repositories": [
-    {
-        "type" : "vcs",
-        "url" : "https://github.com/MESD/JasperReportViewerBundle.git"
-    }
-],
 "require": {
-    "mesd/jasper-report-viewer-bundle": "1.0.0-alpha+001"
+    "mesd/jasper-report-viewer-bundle": "1.0.0"
 }
 ```
 
