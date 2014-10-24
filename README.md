@@ -21,7 +21,7 @@ The report viewer bundle requires the report bundle to have been set up in order
 The first step is to add the bundle to the composer.json of the application.
 ```javascript
 "require": {
-    "mesd/jasper-report-viewer-bundle": "1.0.0"
+    "mesd/jasper-report-viewer-bundle": "~1.0"
 }
 ```
 
