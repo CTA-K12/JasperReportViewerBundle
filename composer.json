@@ -8,6 +8,6 @@
     },
     "target-dir": "Mesd/Jasper/ReportViewerBundle",
     "require": {
-        "mesd/jasper-report-bundle": "1.0.0"
+        "mesd/jasper-report-bundle": "~1.0"
     }
 }
