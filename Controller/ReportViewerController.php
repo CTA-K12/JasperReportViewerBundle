@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormError;
 
 use Mesd\Jasper\ReportViewerBundle\Util\FormErrorConverter;
+use Mesd\Jasper\ReportViewerBundle\Util\FormCompletenessChecker;
 
 class ReportViewerController extends ContainerAware
 {
@@ -71,6 +72,13 @@ class ReportViewerController extends ContainerAware
                 'data' => $data
             )
         );
+
+        //If autorun is set, but the form is not complete, do not autorun
+        if ($autoRun) {
+            if (!FormCompletenessChecker::isComplete($form)) {
+                $autoRun = false;
+            }
+        }
 
         //Display
         $response = new Response($this->container->get('templating')->render('MesdJasperReportViewerBundle:ReportViewer:reportViewer.html.twig'
