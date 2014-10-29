@@ -31,7 +31,7 @@ class ReportInstance
      * @param string $reportUri  The uri of the report to run
      * @param array  $parameters The report parameters keyed by name
      */
-    public function __construct($reportUri, $parameters = [])
+    public function __construct($reportUri, $parameters = array())
     {
         //Set the arguments
         $this->reportUri = $reportUri;
