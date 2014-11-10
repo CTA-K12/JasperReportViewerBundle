@@ -254,7 +254,8 @@ class ReportViewerController extends ContainerAware
                 $data['text'] = '<i id="' . $data['id'] . '-icon" class="icon-file"></i> ' . $resource->getLabel();
                 $data['children'] = false;
                 //Set the href to the report input form
-                $data['a_attr'] = array('href' => $this->container->get('router')->generate('MesdJasperReportViewerBundle_display_report_viewer', array('reportUri' => urlencode($resource->getUriString()))));
+                $data['a_attr'] = array('href' => $this->container->get('router')->generate('MesdJasperReportViewerBundle_display_report_viewer', array('reportUri' => rawurlencode($resource->getUriString()))));
+                $data['dump'] = $resource->getUriString();
             } elseif ('folder' === $resource->getWsType()) {
                 //Folder object specific settings
                 $data['text'] = '<i id="' . $data['id'] . '-icon" class="icon-folder-close"></i> ' . $resource->getLabel();
