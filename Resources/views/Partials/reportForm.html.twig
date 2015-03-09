@@ -11,3 +11,16 @@
     <button type="submit" class="btn">Run Report</button>
 </div>
 {% endblock submit_widget %}
+
+{% block reportajaxselect_widget %}
+    <select id="form_{{ form.vars['id'] }}" name="form[{{ form.vars['id'] }}]" class="dynamo-selectize"
+        data-load-url="{{ url('MesdJasperReportBundle_ajax_options', { 'inputId': form.vars.name, 'limit': 20, 'search': '' }) }}"
+        data-load-type="GET"
+        data-load-resultSet-key="{{ form.vars.name }}"
+        data-load-resultSet-limit="20"
+        data-load-valueField="value"
+        data-load-labelField="text"
+        data-searchField='["text"]'
+    >
+    </select>
+{% endblock reportajaxselect_widget %}

@@ -188,7 +188,8 @@ class ReportViewerController extends ContainerAware
         $decodedReportUri = urldecode($reportUri);
 
         //Get the form again
-        $form = $this->container->get('mesd.jasper.report.client')->buildReportInputForm($decodedReportUri);
+        $form = $this->container->get('mesd.jasper.report.client')->buildReportInputForm(
+            $decodedReportUri, null, array('data' => $request->request->get('form')));
 
         //Process the form
         $form->handleRequest($request);

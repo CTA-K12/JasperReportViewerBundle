@@ -21,6 +21,18 @@
                         <link rel="stylesheet" href="{{ asset_url }}" rel="stylesheet" media="all" />
                     {% endstylesheets %}
                     {% stylesheets
+                    '@MesdJasperReportViewerBundle/Resources/public/css/selectize.css'
+                    output="bundles/mesdjasperreportviewer/css/selectize.css"
+                    filter='cssrewrite' %}
+                        <link rel="stylesheet" href="{{ asset_url }}" rel="stylesheet" media="all" />
+                    {% endstylesheets %}
+                    {% stylesheets
+                    '@MesdJasperReportViewerBundle/Resources/public/css/selectize.bootstrap3.css'
+                    output="bundles/mesdjasperreportviewer/css/selectize.bootstrap3.css"
+                    filter='cssrewrite' %}
+                        <link rel="stylesheet" href="{{ asset_url }}" rel="stylesheet" media="all" />
+                    {% endstylesheets %}
+                    {% stylesheets
                     '@MesdJasperReportViewerBundle/Resources/public/css/print.css'
                     output="bundles/mesdjasperreportviewer/css/print.css"
                     filter='cssrewrite' %}
