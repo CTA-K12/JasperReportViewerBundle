@@ -13,7 +13,15 @@ $(document).ready(function() {
         //Serialize the form (NOTE: do this before disabling the form, else it returns an empty string)
         var formData = {};
         $.each(form.serializeArray(), function(index, field) {
-            formData[field.name] = field.value;
+            if (formData.hasOwnProperty(field.name)) {
+                if (Array === formData[field.name].constructor) {
+                    formData[field.name].push(field.value);
+                } else {
+                    formData[field.name] = [formData[field.name], field.value];
+                }
+            } else {
+                formData[field.name] = field.value;
+            }
         });
 
         //Turn off the form inputs
