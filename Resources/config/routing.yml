@@ -1,45 +1,45 @@
 MesdJasperReportViewerBundle_home:
-    pattern:  /
+    path:  /
     defaults: { _controller: "MesdJasperReportViewerBundle:ReportViewer:home" }
 
 MesdJasperReportViewerBundle_reports_json:
-    pattern:  /list/json
+    path:  /list/json
     defaults: { _controller: "MesdJasperReportViewerBundle:ReportViewer:listJson"}
 
 MesdJasperReportViewerBundle_report_form:
-    pattern:  /execute/{reportUri}
+    path:  /execute/{reportUri}
     defaults: { _controller: "MesdJasperReportViewerBundle:ReportViewer:execute" }
     requirements:
-        _method: POST
+        methods: POST
 
 MesdJasperReportViewerBundle_report_history:
-    pattern:  /history
+    path:  /history
     defaults: { _controller: "MesdJasperReportViewerBundle:ReportViewer:history" }
 
 MesdJasperReportVIewerBundle_report_history_single:
-    pattern:  /history/{reportUri}
+    path:  /history/{reportUri}
     defaults: { _controller: "MesdJasperReportViewerBundle:ReportViewer:history" }
 
 MesdJasperReportViewerBundle_report_history_json:
-    pattern:  /historylist
+    path:  /historylist
     defaults: { _controller: "MesdJasperReportViewerBundle:ReportViewer:reportHistoryJson" }
 
 MesdJasperReportViewerBundle_report_history_single_json:
-    pattern:  /historylist/{reportUri}
+    path:  /historylist/{reportUri}
     defaults: { _controller: "MesdJasperReportViewerBundle:ReportViewer:reportHistoryJson" }
 
 MesdJasperReportViewerBundle_display_report_viewer:
-    pattern:  /display/{reportUri}
+    path:  /display/{reportUri}
     defaults: { _controller: "MesdJasperReportViewerBundle:ReportViewer:reportViewer" }
 
 MesdJasperReportViewerBundle_display_history_report_viewer:
-    pattern:  /historydisplay/{reportUri}/{existing}
+    path:  /historydisplay/{reportUri}/{existing}
     defaults: { _controller: "MesdJasperReportViewerBundle:ReportViewer:reportViewer" }
 
 MesdJasperReportViewerBundle_display_direct_report_viewer:
-    pattern:  /displaydirect/{reportUri}/{direct}
+    path:  /displaydirect/{reportUri}/{direct}
     defaults: { _controller: "MesdJasperReportViewerBundle:ReportViewer:reportViewer" }
 
 MesdJasperReportViewerBundle_display_page:
-    pattern:  /page/{requestId}/{page}
+    path:  /page/{requestId}/{page}
     defaults: { _controller: "MesdJasperReportViewerBundle:ReportViewer:getPage" }
