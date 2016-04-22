@@ -21,13 +21,31 @@ class ReportViewerExtension extends \Twig_Extension
     public function getFunctions()
     {
         //Function definition
-        return array(
-            'mesd_jasper_reportviewer_stored_report_link' => new \Twig_Function_Method($this, 'renderStoredReportLink',  array('is_safe' => array('html'))),
-            'mesd_jasper_reportviewer_report_link' => new \Twig_Function_Method($this, 'renderReportLink',  array('is_safe' => array('html'))),
-            'mesd_jasper_reportviewer_home' => new \Twig_Function_Method($this, 'renderReportHome', array('is_safe' => array('html'))),
-            'mesd_jasper_reportviewer_uri' => new \Twig_Function_Method($this, 'renderReportURI', array('is_safe' => array('html'))),
-            'mesd_jasper_reportviewer_direct_link' => new \Twig_Function_Method($this, 'renderDirectReportLink', array('is_safe' => array('html')))
-        );
+    public function getFunctions()
+    {
+        //Function definition
+        return [
+            new \Twig_SimpleFunction('mesd_jasper_reportviewer_uri',
+                [$this, 'renderReportURI'],
+                ['is_safe' => ['html']]
+            ),
+            new \Twig_SimpleFunction('mesd_jasper_reportviewer_stored_report_link',
+                [$this, 'renderStoredReportLink'], ['is_safe' => ['html']]
+            ),
+            new \Twig_SimpleFunction('mesd_jasper_reportviewer_report_link',
+                [$this, 'renderReportLink'],
+                ['is_safe' => ['html']]
+            ),
+            new \Twig_SimpleFunction('mesd_jasper_reportviewer_home',
+                [$this, 'renderReportHome'],
+                ['is_safe' => ['html']]
+            ),
+            new \Twig_SimpleFunction('mesd_jasper_reportviewer_direct_link',
+                [$this, 'renderDirectReportLink'],
+                ['is_safe' => ['html']]
+            ),
+        ];
+    }
     }
 
     //Returns the name of this extension (this is required)
