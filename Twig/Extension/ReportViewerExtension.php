@@ -10,17 +10,12 @@ class ReportViewerExtension extends \Twig_Extension
     // TWIG EXTENSION INTERFACE //
     //////////////////////////////
 
-
     //InitRuntime function, called at runtime, overriding to get an instance of the twig environment
     public function initRuntime(\Twig_Environment $environment)
     {
         $this->environment = $environment;
     }
 
-    //Get functions lists the functions in this class
-    public function getFunctions()
-    {
-        //Function definition
     public function getFunctions()
     {
         //Function definition
@@ -46,18 +41,16 @@ class ReportViewerExtension extends \Twig_Extension
             ),
         ];
     }
-    
 
     //Returns the name of this extension (this is required)
-    public function getName() {
+    public function getName()
+    {
         return 'mesd_jasper_reportviewer_extension';
     }
-
 
     ///////////////
     // FUNCTIONS //
     ///////////////
-
 
     /**
      * Render a link to the report viewer home
@@ -72,11 +65,10 @@ class ReportViewerExtension extends \Twig_Extension
     {
         return $this->environment->render(
             'MesdJasperReportViewerBundle:Partials:reportURI.html.twig',
-            array(
-            )
+            [
+            ]
         );
     }
-
 
     /**
      * Render a link to the report viewer home
@@ -87,14 +79,17 @@ class ReportViewerExtension extends \Twig_Extension
      *
      * @return [type]                  [description]
      */
-    public function renderReportHome($linkText, $classes = ' ', $openInNewTab = true)
-    {
+    public function renderReportHome(
+        $linkText,
+        $classes = ' ',
+        $openInNewTab = true
+    ) {
         return $this->environment->render(
             'MesdJasperReportViewerBundle:Partials:reportHome.html.twig',
-            array(
-                'linkText' => $linkText,
-                'classes' => $classes,
-                'openInNewTab' => $openInNewTab));
+            [
+                'linkText'     => $linkText,
+                'classes'      => $classes,
+                'openInNewTab' => $openInNewTab]);
     }
 
     /**
@@ -108,18 +103,22 @@ class ReportViewerExtension extends \Twig_Extension
      *
      * @return string                The final link tag
      */
-    public function renderReportLink($reportUri, $linkText, $classes = ' ', $openInNewTab = true, $hideHome = true)
-    {
+    public function renderReportLink(
+        $reportUri,
+        $linkText,
+        $classes = ' ',
+        $openInNewTab = true,
+        $hideHome = true
+    ) {
         return $this->environment->render(
             'MesdJasperReportViewerBundle:Partials:reportLink.html.twig',
-            array(
-                'reportUri' => $reportUri,
-                'linkText' => $linkText,
-                'classes' => $classes,
+            [
+                'reportUri'    => $reportUri,
+                'linkText'     => $linkText,
+                'classes'      => $classes,
                 'openInNewTab' => $openInNewTab,
-                'hideHome' => $hideHome));
+                'hideHome'     => $hideHome]);
     }
-
 
     /**
      * Renders a link to a stored report
@@ -133,19 +132,24 @@ class ReportViewerExtension extends \Twig_Extension
      *
      * @return string                The final link tag
      */
-    public function renderStoredReportLink($reportUri, $requestId, $linkText, $classes = ' ', $openInNewTab = true, $hideHome = true)
-    {
+    public function renderStoredReportLink(
+        $reportUri,
+        $requestId,
+        $linkText,
+        $classes = ' ',
+        $openInNewTab = true,
+        $hideHome = true
+    ) {
         return $this->environment->render(
             'MesdJasperReportViewerBundle:Partials:storedReportLink.html.twig',
-            array(
-                'reportUri' => $reportUri,
-                'requestId' => $requestId,
-                'linkText' => $linkText,
-                'classes' => $classes,
+            [
+                'reportUri'    => $reportUri,
+                'requestId'    => $requestId,
+                'linkText'     => $linkText,
+                'classes'      => $classes,
                 'openInNewTab' => $openInNewTab,
-                'hideHome' => $hideHome));
+                'hideHome'     => $hideHome]);
     }
-
 
     /**
      * Renders a report immediately in the viewer with the parameters from the report instance object
@@ -158,16 +162,21 @@ class ReportViewerExtension extends \Twig_Extension
      *
      * @return string                         The rendered link html
      */
-    public function renderDirectReportLink(ReportInstance $reportInstance, $linkText, $classes = ' ', $openInNewTab = true, $hideHome = true)
-    {
+    public function renderDirectReportLink(
+        ReportInstance $reportInstance,
+                       $linkText,
+                       $classes = ' ',
+                       $openInNewTab = true,
+                       $hideHome = true
+    ) {
         return $this->environment->render(
             'MesdJasperReportViewerBundle:Partials:directReportLink.html.twig',
-            array(
-                'reportUri' => $reportInstance->getReportUri(),
-                'parameters' => urlencode(serialize($reportInstance->getParameters())),
-                'linkText' => $linkText,
-                'classes' => $classes,
+            [
+                'reportUri'    => $reportInstance->getReportUri(),
+                'parameters'   => urlencode(serialize($reportInstance->getParameters())),
+                'linkText'     => $linkText,
+                'classes'      => $classes,
                 'openInNewTab' => $openInNewTab,
-                'hideHome' => $hideHome));
+                'hideHome'     => $hideHome]);
     }
 }
