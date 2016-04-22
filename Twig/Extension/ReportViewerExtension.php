@@ -46,7 +46,7 @@ class ReportViewerExtension extends \Twig_Extension
             ),
         ];
     }
-    }
+    
 
     //Returns the name of this extension (this is required)
     public function getName() {
