@@ -4,10 +4,12 @@
     "type": "symfony-bundle",
     "description": "Adds a viewer element to work with the mesd/jasper-report-bundle",
     "autoload": {
-        "psr-0": { "Mesd\\Jasper\\ReportViewerBundle": "" }
+        "psr-0": {
+            "Mesd\\Jasper\\ReportViewerBundle": ""
+        }
     },
     "target-dir": "Mesd/Jasper/ReportViewerBundle",
     "require": {
-        "mesd/jasper-report-bundle": ">=1.0.7"
+        "mesd/jasper-report-bundle": "dev-ormed"
     }
 }
