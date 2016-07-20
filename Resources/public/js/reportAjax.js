@@ -118,8 +118,6 @@ function handleSuccess(data) {
         displayFormErrors(data['errors']);
     }
     else {
-        alert(data);
-        alert(data['errors']);
         handleFailure(data);
     }
 }
