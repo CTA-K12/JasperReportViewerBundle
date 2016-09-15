@@ -6,4 +6,4 @@ services:
 
     mesd.jasper.reportviewer.linkhelper:
         class: Mesd\Jasper\ReportViewerBundle\Helper\LinkHelper
-        arguments: [ @router ]
+        arguments: [ "@router" ]
