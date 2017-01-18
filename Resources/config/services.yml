@@ -1,6 +1,7 @@
 services:
     mesd.jasper.reportviewer.twig.extension:
         class: Mesd\Jasper\ReportViewerBundle\Twig\Extension\ReportViewerExtension
+        arguments: [ "@twig" ]
         tags:
             - { name: twig.extension }
 

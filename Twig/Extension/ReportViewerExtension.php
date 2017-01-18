@@ -10,8 +10,10 @@ class ReportViewerExtension extends \Twig_Extension
     // TWIG EXTENSION INTERFACE //
     //////////////////////////////
 
+    private $environment;
+
     //InitRuntime function, called at runtime, overriding to get an instance of the twig environment
-    public function initRuntime(\Twig_Environment $environment)
+    public function __construct(\Twig_Environment $environment)
     {
         $this->environment = $environment;
     }
@@ -21,11 +23,46 @@ class ReportViewerExtension extends \Twig_Extension
     {
         //Function definition
         return [
-            'mesd_jasper_reportviewer_stored_report_link' => new \Twig_Function_Method($this, 'renderStoredReportLink', ['is_safe' => ['html']]),
-            'mesd_jasper_reportviewer_report_link'        => new \Twig_Function_Method($this, 'renderReportLink', ['is_safe' => ['html']]),
-            'mesd_jasper_reportviewer_home'               => new \Twig_Function_Method($this, 'renderReportHome', ['is_safe' => ['html']]),
-            'mesd_jasper_reportviewer_uri'                => new \Twig_Function_Method($this, 'renderReportURI', ['is_safe' => ['html']]),
-            'mesd_jasper_reportviewer_direct_link'        => new \Twig_Function_Method($this, 'renderDirectReportLink', ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction(
+                'mesd_jasper_reportviewer_stored_report_link',
+                [$this, 'renderStoredReportLink'],
+                [
+                    'is_safe'           => ['html'],
+                    'needs_environment' => true,
+                ]
+            ),
+            new \Twig_SimpleFunction(
+                'mesd_jasper_reportviewer_report_link',
+                [$this, 'renderReportLink'],
+                [
+                    'is_safe'           => ['html'],
+                    'needs_environment' => true,
+                ]
+            ),
+            new \Twig_SimpleFunction(
+                'mesd_jasper_reportviewer_home',
+                [$this, 'renderReportHome'],
+                [
+                    'is_safe'           => ['html'],
+                    'needs_environment' => true,
+                ]
+            ),
+            new \Twig_SimpleFunction(
+                'mesd_jasper_reportviewer_uri',
+                [$this, 'renderReportURI'],
+                [
+                    'is_safe'           => ['html'],
+                    'needs_environment' => true,
+                ]
+            ),
+            new \Twig_SimpleFunction(
+                'mesd_jasper_reportviewer_direct_link',
+                [$this, 'renderDirectReportLink'],
+                [
+                    'is_safe'           => ['html'],
+                    'needs_environment' => true,
+                ]
+            ),
         ];
     }
 
