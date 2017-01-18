@@ -25,66 +25,87 @@ class ReportViewerExtension extends \Twig_Extension
         return [
             new \Twig_SimpleFunction(
                 'mesd_jasper_reportviewer_stored_report_link',
-                [$this, 'renderStoredReportLink'],
                 [
-                    'is_safe'           => ['html'],
+                    $this,
+                    'renderStoredReportLink',
+                ],
+                [
+                    // 'is_safe'           => ['html'],
+                    'is_safe'           => ['html', __LINE__],
                     'needs_environment' => true,
                 ]
             ),
             new \Twig_SimpleFunction(
                 'mesd_jasper_reportviewer_report_link',
-                [$this, 'renderReportLink'],
                 [
-                    'is_safe'           => ['html'],
+                    $this,
+                    'renderReportLink',
+                ],
+                [
+                    // 'is_safe'           => ['html'],
+                    'is_safe'           => ['html', __LINE__],
                     'needs_environment' => true,
                 ]
             ),
             new \Twig_SimpleFunction(
                 'mesd_jasper_reportviewer_home',
-                [$this, 'renderReportHome'],
                 [
-                    'is_safe'           => ['html'],
-                    'needs_environment' => true,
-                ]
-            ),
-            new \Twig_SimpleFunction(
-                'mesd_jasper_reportviewer_uri',
-                [$this, 'renderReportURI'],
+                    $this,
+                    'renderReportHome',
+                ],
                 [
-                    'is_safe'           => ['html'],
+                    // 'is_safe'           => ['html'],
+                    'is_safe'           => ['html', __LINE__],
                     'needs_environment' => true,
                 ]
             ),
             new \Twig_SimpleFunction(
                 'mesd_jasper_reportviewer_direct_link',
-                [$this, 'renderDirectReportLink'],
                 [
-                    'is_safe'           => ['html'],
+                    $this,
+                    'renderDirectReportLink',
+                ],
+                [
+                    // 'is_safe'           => ['html'],
+                    'is_safe'           => ['html', __LINE__],
                     'needs_environment' => true,
+                ]
+            ),
+            new \Twig_SimpleFunction(
+                'mesd_jasper_reportviewer_uri',
+                [
+                    $this,
+                    'renderReportURI',
+                ],
+                [
+                    // 'is_safe'           => ['html'],
+                    'is_safe'           => ['html', __LINE__],
+                    'needs_environment' => true,
+
                 ]
             ),
         ];
     }
 
-    //Returns the name of this extension (this is required)
+//Returns the name of this extension (this is required)
     public function getName()
     {
         return 'mesd_jasper_reportviewer_extension';
     }
 
-    ///////////////
+///////////////
     // FUNCTIONS //
     ///////////////
 
-    /**
-     * Render a link to the report viewer home
-     *
-     * @param [type]  $linkText       [description]
-     * @param string  $class          [description]
-     * @param boolean $optionInNewTab [description]
-     *
-     * @return [type]                  [description]
-     */
+/**
+ * Render a link to the report viewer home
+ *
+ * @param [type]  $linkText       [description]
+ * @param string  $class          [description]
+ * @param boolean $optionInNewTab [description]
+ *
+ * @return [type]                  [description]
+ */
     public function renderReportURI()
     {
         return $this->environment->render(
@@ -94,15 +115,15 @@ class ReportViewerExtension extends \Twig_Extension
         );
     }
 
-    /**
-     * Render a link to the report viewer home
-     *
-     * @param [type]  $linkText       [description]
-     * @param string  $class          [description]
-     * @param boolean $optionInNewTab [description]
-     *
-     * @return [type]                  [description]
-     */
+/**
+ * Render a link to the report viewer home
+ *
+ * @param [type]  $linkText       [description]
+ * @param string  $class          [description]
+ * @param boolean $optionInNewTab [description]
+ *
+ * @return [type]                  [description]
+ */
     public function renderReportHome(
         $linkText,
         $classes = ' ',
@@ -113,20 +134,22 @@ class ReportViewerExtension extends \Twig_Extension
             [
                 'linkText'     => $linkText,
                 'classes'      => $classes,
-                'openInNewTab' => $openInNewTab]);
+                'openInNewTab' => $openInNewTab,
+            ]
+        );
     }
 
-    /**
-     * Renders a link to a report
-     *
-     * @param string  $reportUri    The uri of the report
-     * @param string  $linkText     The text to display for the link
-     * @param string  $classes      The classes to have for the anchor tag
-     * @param boolean $openInNewTab Whether to open in a new tab or not
-     * @param boolean $hideHome     Whether to hide the home and history nav links
-     *
-     * @return string                The final link tag
-     */
+/**
+ * Renders a link to a report
+ *
+ * @param string  $reportUri    The uri of the report
+ * @param string  $linkText     The text to display for the link
+ * @param string  $classes      The classes to have for the anchor tag
+ * @param boolean $openInNewTab Whether to open in a new tab or not
+ * @param boolean $hideHome     Whether to hide the home and history nav links
+ *
+ * @return string                The final link tag
+ */
     public function renderReportLink(
         $reportUri,
         $linkText,
@@ -141,21 +164,23 @@ class ReportViewerExtension extends \Twig_Extension
                 'linkText'     => $linkText,
                 'classes'      => $classes,
                 'openInNewTab' => $openInNewTab,
-                'hideHome'     => $hideHome]);
+                'hideHome'     => $hideHome,
+            ]
+        );
     }
 
-    /**
-     * Renders a link to a stored report
-     *
-     * @param string  $reportUri    The uri of the report the request id is for
-     * @param string  $requestId    The request id of the stored report
-     * @param string  $linkText     The text to display for the link
-     * @param string  $classes      The classes to have for the anchor tag
-     * @param boolean $openInNewTab Whether to open in a new tab or not
-     * @param boolean $hideHome     Whether to hide the home and history nav links
-     *
-     * @return string                The final link tag
-     */
+/**
+ * Renders a link to a stored report
+ *
+ * @param string  $reportUri    The uri of the report the request id is for
+ * @param string  $requestId    The request id of the stored report
+ * @param string  $linkText     The text to display for the link
+ * @param string  $classes      The classes to have for the anchor tag
+ * @param boolean $openInNewTab Whether to open in a new tab or not
+ * @param boolean $hideHome     Whether to hide the home and history nav links
+ *
+ * @return string                The final link tag
+ */
     public function renderStoredReportLink(
         $reportUri,
         $requestId,
@@ -175,17 +200,17 @@ class ReportViewerExtension extends \Twig_Extension
                 'hideHome'     => $hideHome]);
     }
 
-    /**
-     * Renders a report immediately in the viewer with the parameters from the report instance object
-     *
-     * @param  ReportInstance $reportInstance The instance of a report to run
-     * @param  string         $linkText       THe text to place in the link
-     * @param  string         $classes        The classes to add to the link
-     * @param  boolean        $openInNewTab   Whether the report viewer would open in a new tab
-     * @param  boolean        $hideHome       Whether the report home should be shown
-     *
-     * @return string                         The rendered link html
-     */
+/**
+ * Renders a report immediately in the viewer with the parameters from the report instance object
+ *
+ * @param  ReportInstance $reportInstance The instance of a report to run
+ * @param  string         $linkText       THe text to place in the link
+ * @param  string         $classes        The classes to add to the link
+ * @param  boolean        $openInNewTab   Whether the report viewer would open in a new tab
+ * @param  boolean        $hideHome       Whether the report home should be shown
+ *
+ * @return string                         The rendered link html
+ */
     public function renderDirectReportLink(
         ReportInstance $reportInstance,
                        $linkText,
