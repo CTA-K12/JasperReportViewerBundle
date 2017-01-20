@@ -28,10 +28,10 @@ class ReportViewerExtension extends \Twig_Extension
                 [
                     $this,
                     'renderStoredReportLink',
-                ],
+                ]
+                ,
                 [
-                    // 'is_safe'           => ['html'],
-                    'is_safe'           => ['html', __LINE__],
+                    'is_safe'           => ['html'],
                     'needs_environment' => true,
                 ]
             ),
@@ -40,10 +40,10 @@ class ReportViewerExtension extends \Twig_Extension
                 [
                     $this,
                     'renderReportLink',
-                ],
+                ]
+                ,
                 [
-                    // 'is_safe'           => ['html'],
-                    'is_safe'           => ['html', __LINE__],
+                    'is_safe'           => ['html'],
                     'needs_environment' => true,
                 ]
             ),
@@ -52,10 +52,10 @@ class ReportViewerExtension extends \Twig_Extension
                 [
                     $this,
                     'renderReportHome',
-                ],
+                ]
+                ,
                 [
-                    // 'is_safe'           => ['html'],
-                    'is_safe'           => ['html', __LINE__],
+                    'is_safe'           => ['html'],
                     'needs_environment' => true,
                 ]
             ),
@@ -64,10 +64,10 @@ class ReportViewerExtension extends \Twig_Extension
                 [
                     $this,
                     'renderDirectReportLink',
-                ],
+                ]
+                ,
                 [
-                    // 'is_safe'           => ['html'],
-                    'is_safe'           => ['html', __LINE__],
+                    'is_safe'           => ['html'],
                     'needs_environment' => true,
                 ]
             ),
@@ -76,10 +76,10 @@ class ReportViewerExtension extends \Twig_Extension
                 [
                     $this,
                     'renderReportURI',
-                ],
+                ]
+                ,
                 [
-                    // 'is_safe'           => ['html'],
-                    'is_safe'           => ['html', __LINE__],
+                    'is_safe'           => ['html'],
                     'needs_environment' => true,
 
                 ]

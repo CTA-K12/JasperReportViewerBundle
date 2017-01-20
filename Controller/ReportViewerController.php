@@ -22,11 +22,8 @@ class ReportViewerController extends ContainerAware
      */
     public function homeAction()
     {
-        var_dump(__LINE__);
         //Render the report home page
         $response = new Response($this->container->get('templating')->render('MesdJasperReportViewerBundle:ReportViewer:home.html.twig'));
-        var_dump(__LINE__);
-        die;
         return $response;
     }
 
