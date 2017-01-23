@@ -31,8 +31,7 @@ class ReportViewerExtension extends \Twig_Extension
                 ]
                 ,
                 [
-                    'is_safe'           => ['html'],
-                    'needs_environment' => true,
+                    'is_safe' => ['html'],
                 ]
             ),
             new \Twig_SimpleFunction(
@@ -43,8 +42,7 @@ class ReportViewerExtension extends \Twig_Extension
                 ]
                 ,
                 [
-                    'is_safe'           => ['html'],
-                    'needs_environment' => true,
+                    'is_safe' => ['html'],
                 ]
             ),
             new \Twig_SimpleFunction(
@@ -55,8 +53,7 @@ class ReportViewerExtension extends \Twig_Extension
                 ]
                 ,
                 [
-                    'is_safe'           => ['html'],
-                    'needs_environment' => true,
+                    'is_safe' => ['html'],
                 ]
             ),
             new \Twig_SimpleFunction(
@@ -67,8 +64,7 @@ class ReportViewerExtension extends \Twig_Extension
                 ]
                 ,
                 [
-                    'is_safe'           => ['html'],
-                    'needs_environment' => true,
+                    'is_safe' => ['html'],
                 ]
             ),
             new \Twig_SimpleFunction(
@@ -79,8 +75,7 @@ class ReportViewerExtension extends \Twig_Extension
                 ]
                 ,
                 [
-                    'is_safe'           => ['html'],
-                    'needs_environment' => true,
+                    'is_safe' => ['html'],
 
                 ]
             ),
