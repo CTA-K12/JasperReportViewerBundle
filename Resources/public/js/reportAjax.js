@@ -106,12 +106,13 @@ function enableForm(form) {
 }
 
 function handleSuccess(data) {
+    console.log(data);
     stopProcessingMessage();
     if (data['success']) {
         //Go ahead and set the first page
         displayPage(data['output']);
-
-        //Setup the toolbat
+        displayPageNumbers(data.page, data.totalPages);
+        //Setup the toolbar
         setupToolbar(data['toolbar']);
     }
     else if ('undefined' !== typeof data['errors'] && null !== data['errors']) {
@@ -208,6 +209,12 @@ function displayPage(output) {
         .html(output);
 }
 
+function displayPageNumbers(page, totalPages) {
+    $('span#page-num').text(page);
+    $('span#total-pages').text(totalPages);
+    $('span#page-of-total').show();
+}
+
 function setupToolbar(toolbar) {
     //Set the hrefs
     $('#export-pdf')
@@ -228,6 +235,8 @@ function setupToolbar(toolbar) {
         .attr('href', toolbar['last']);
     $('#print-report')
         .attr('href', toolbar['print']);
+
+    console.log(toolbar);
 
     //Determine whether the button should be displayed as active or not
     var selectors = ['#export-pdf', '#export-xls', '#first-page', '#back-ten', '#back-one',
