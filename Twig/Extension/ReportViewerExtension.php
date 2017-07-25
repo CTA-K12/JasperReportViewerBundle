@@ -253,7 +253,6 @@ class ReportViewerExtension extends \Twig_Extension
                        $openInNewTab = true,
                        $hideHome = true
     ) {
-        var_dump($reportInstance->getParameters());
         return $this->environment->render(
             'MesdJasperReportViewerBundle:Partials:directReportLink.html.twig',
             [
