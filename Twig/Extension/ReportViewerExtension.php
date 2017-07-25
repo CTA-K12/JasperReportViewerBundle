@@ -68,6 +68,17 @@ class ReportViewerExtension extends \Twig_Extension
                 ]
             ),
             new \Twig_SimpleFunction(
+                'mesd_jasper_reportviewer_indirect_link',
+                [
+                    $this,
+                    'renderIndirectReportLink',
+                ]
+                ,
+                [
+                    'is_safe' => ['html'],
+                ]
+            ),
+            new \Twig_SimpleFunction(
                 'mesd_jasper_reportviewer_uri',
                 [
                     $this,
@@ -218,6 +229,36 @@ class ReportViewerExtension extends \Twig_Extension
             [
                 'reportUri'    => $reportInstance->getReportUri(),
                 'parameters'   => urlencode(serialize($reportInstance->getParameters())),
+                'linkText'     => $linkText,
+                'classes'      => $classes,
+                'openInNewTab' => $openInNewTab,
+                'hideHome'     => $hideHome]);
+    }
+
+/**
+ * Renders a report with populated selectors in the viewer with the parameters from the report instance object
+ *
+ * @param  ReportInstance $reportInstance The instance of a report to run
+ * @param  string         $linkText       THe text to place in the link
+ * @param  string         $classes        The classes to add to the link
+ * @param  boolean        $openInNewTab   Whether the report viewer would open in a new tab
+ * @param  boolean        $hideHome       Whether the report home should be shown
+ *
+ * @return string                         The rendered link html
+ */
+    public function renderInDirectReportLink(
+        ReportInstance $reportInstance,
+                       $linkText,
+                       $classes = ' ',
+                       $openInNewTab = true,
+                       $hideHome = true
+    ) {
+        var_dump($reportInstance->getParameters());
+        return $this->environment->render(
+            'MesdJasperReportViewerBundle:Partials:directReportLink.html.twig',
+            [
+                'reportUri'    => $reportInstance->getReportUri(),
+                'parameters'   => urlencode(serialize(array_merge($reportInstance->getParameters(), ['autorun' => false]))),
                 'linkText'     => $linkText,
                 'classes'      => $classes,
                 'openInNewTab' => $openInNewTab,

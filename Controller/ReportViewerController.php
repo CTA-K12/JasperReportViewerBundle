@@ -60,8 +60,8 @@ class ReportViewerController extends ContainerAware
             //Decode the array
             $data    = unserialize(urldecode($direct));
             $autoRun = true;
+            $autoRun = isset($data['autorun']) ? $data['autorun'] : $autoRun;
         }
-
         //Build the form
         $form = $this->container->get('mesd.jasper.report.client')->buildReportInputForm(
             urldecode($reportUri), 'MesdJasperReportViewerBundle_report_form', [
