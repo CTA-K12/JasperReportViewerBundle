@@ -20,7 +20,7 @@ class ReportViewerController extends ContainerAware
      *
      * @return Response The rendered home page
      */
-    public function homeAction()
+    public function homeAction(Request $request)
     {
         //Render the report home page
         $response = new Response($this->container->get('templating')->render('MesdJasperReportViewerBundle:ReportViewer:home.html.twig'));
@@ -37,12 +37,13 @@ class ReportViewerController extends ContainerAware
      * @return Response  The rendered page
      */
     public function reportViewerAction(
-        $reportUri,
-        $existing = null,
-        $direct = null
+        Request $request,
+                $reportUri,
+                $existing = null,
+                $direct = null
     ) {
         //Determine whether to show or hide the report home button
-        $hideHome = $this->container->get('request')->query->get('hideHome') ?: 'false';
+        $hideHome = $request->query->get('hideHome') ?: 'false';
 
         //Set the defaults
         $preload = null;
@@ -100,10 +101,12 @@ class ReportViewerController extends ContainerAware
      *
      * @return Response          Rendered page
      */
-    public function historyAction($reportUri = null)
-    {
+    public function historyAction(
+        Request $request,
+                $reportUri = null
+    ) {
         //Determine whether to show or hide the report home button
-        $hideHome = $this->container->get('request')->query->get('hideHome') ?: 'false';
+        $hideHome = $request->query->get('hideHome') ?: 'false';
 
         //Render and return
         $response = new Response($this->container->get('templating')->render(
@@ -129,8 +132,9 @@ class ReportViewerController extends ContainerAware
      * @return JsonResponse      JsonResponse with the
      */
     public function getPageAction(
-        $requestId,
-        $page
+        Request $request,
+                $requestId,
+                $page
     ) {
         $response            = $this->loadPage($requestId, $page);
         $response['toolbar'] = $this->container->get('mesd.jasper.reportviewer.linkhelper')->generateToolbarLinks(
@@ -148,8 +152,9 @@ class ReportViewerController extends ContainerAware
      * @return array             The response array
      */
     protected function loadPage(
-        $requestId,
-        $page
+        Request $request,
+                $requestId,
+                $page
     ) {
         //Create an array that will be converted into the json response
         $response = ['success' => true, 'output' => ''];
@@ -185,8 +190,8 @@ class ReportViewerController extends ContainerAware
      * @return JsonResponse       Json Response giving links to the output or what errors occured
      */
     public function executeAction(
-                $reportUri,
-        Request $request
+        Request $request,
+                $reportUri
     ) {
         //Decode the report uri
         $decodedReportUri = urldecode($reportUri);
@@ -230,10 +235,10 @@ class ReportViewerController extends ContainerAware
      *
      * @return JsonResponse   The Json Object of the returned resources
      */
-    public function listJsonAction()
+    public function listJsonAction(Request $request)
     {
         //Get the folder
-        $folderUri = $this->container->get('request')->query->get('id');
+        $folderUri = $request->query->get('id');
 
         //Set folder uri to null to use the default if the root is requested ('#')
         if ('#' === $folderUri) {
@@ -280,11 +285,13 @@ class ReportViewerController extends ContainerAware
      *
      * @return Response          The json representation of this reports history table
      */
-    public function reportHistoryJsonAction($reportUri = null)
-    {
+    public function reportHistoryJsonAction(
+        Request $request,
+                $reportUri = null
+    ) {
         //Get the sent parameters from datatables
-        $limit  = $this->container->get('request')->query->get('length');
-        $offset = $this->container->get('request')->query->get('start');
+        $limit  = $request->query->get('length');
+        $offset = $request->query->get('start');
 
         //Create a new repsonse array that will be converted to json
         $response = [];
