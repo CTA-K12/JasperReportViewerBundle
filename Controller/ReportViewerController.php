@@ -152,9 +152,8 @@ class ReportViewerController extends ContainerAware
      * @return array             The response array
      */
     protected function loadPage(
-        Request $request,
-                $requestId,
-                $page
+        $requestId,
+        $page
     ) {
         //Create an array that will be converted into the json response
         $response = ['success' => true, 'output' => ''];
