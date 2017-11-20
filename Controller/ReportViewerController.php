@@ -4,12 +4,12 @@ namespace Mesd\Jasper\ReportViewerBundle\Controller;
 
 use Mesd\Jasper\ReportViewerBundle\Util\FormCompletenessChecker;
 use Mesd\Jasper\ReportViewerBundle\Util\FormErrorConverter;
-use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ReportViewerController extends ContainerAware
+class ReportViewerController extends Controller
 {
     ////////////////////////
     // RENDERED RESPONSES //
